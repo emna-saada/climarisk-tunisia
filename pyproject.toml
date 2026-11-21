@@ -5,7 +5,7 @@ description = "Physical climate risk of a synthetic Tunisian bank loan portfolio
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Emna Saada" }]
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 dependencies = [
   "numpy>=1.26",
   "pandas>=2.1",
