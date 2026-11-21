@@ -1,8 +1,8 @@
-"""Typeset the methodology report (French) with LaTeX from outputs/kpis.json.
+"""Typeset the working paper (English) with LaTeX from outputs/kpis.json.
 
 Template: report/climarisk.tex.j2 (Jinja2 with LaTeX-safe delimiters \\VAR{...} and \\BLOCK{...}).
-Figures: outputs/paper/fr/*.pdf from climarisk.paperfigs. Output: docs/report.pdf.
-Requires pdflatex (TeX Live: latex-base, latex-recommended, latex-extra, fonts-recommended, lang-french).
+Figures: outputs/paper/en/*.pdf from climarisk.paperfigs. Output: docs/report.pdf.
+Requires pdflatex (TeX Live: latex-base, latex-recommended, latex-extra, fonts-recommended).
 """
 from __future__ import annotations
 
@@ -18,44 +18,44 @@ import yaml
 
 from .config import project_root
 
-MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
-          "novembre", "décembre"]
-SECT = {"cereals": "Céréaliculture", "olives": "Oléiculture", "citrus": "Agrumes", "agrifood": "Agroalimentaire",
-        "textile": "Textile", "tourism": "Tourisme côtier", "residential": "Immobilier résidentiel",
-        "construction": "BTP", "chemicals": "Chimie et phosphates", "energy": "Énergie"}
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+          "November", "December"]
+SECT = {"cereals": "Cereals", "olives": "Olives", "citrus": "Citrus", "agrifood": "Agrifood", "textile": "Textile",
+        "tourism": "Coastal tourism", "residential": "Housing", "construction": "Construction",
+        "chemicals": "Chemicals and phosphates", "energy": "Energy"}
 REG_USE = {
-    "BCBS-2022": "Intégration au risque de crédit, données et analyse de scénarios.",
-    "BCBS-P3-2025": "Tableaux d'exposition aux risques physiques par secteur et gouvernorat.",
-    "NGFS-V": "Cadre narratif ; correspondance avec SSP2-4.5 et SSP5-8.5. Fonction de dommage PIB non utilisée.",
-    "EBA-ESG-2025": "Horizons court, moyen et long terme ; analyse de sensibilité.",
-    "ECB-2020": "Usages possibles dans le Pilier 2 et l'ICAAP.",
-    "IFRS-S2": "Indicateurs d'exposition ; risque physique uniquement.",
-    "BCT-91-24": "Agrégation par secteur et gouvernorat (concentration). Texte à revérifier.",
-    "BCT-2018-06": "Contexte prudentiel. Ratios non cités.",
-    "BCT-ROADMAP": "Positionnement de l'outil ; source : presse tunisienne.",
-    "LOI-2004-63": "Portefeuille entièrement synthétique.",
+    "BCBS-2022": "Integration into credit risk, data and scenario analysis.",
+    "BCBS-P3-2025": "Physical-risk exposure tables by sector and governorate.",
+    "NGFS-V": "Narrative frame; mapped to SSP2-4.5 and SSP5-8.5. GDP-damage function not used.",
+    "EBA-ESG-2025": "Short, medium and long horizons; sensitivity analysis.",
+    "ECB-2020": "Possible uses in Pillar 2 and the ICAAP.",
+    "IFRS-S2": "Exposure metrics; physical risk only.",
+    "BCT-91-24": "Aggregation by sector and governorate (concentration). To be re-checked.",
+    "BCT-2018-06": "Prudential context. Ratios not quoted.",
+    "BCT-ROADMAP": "Positioning of the tool; source: Tunisian press.",
+    "LOI-2004-63": "Fully synthetic portfolio.",
 }
 SHORT = {
-    "BCBS-2022": "BCBS, principes pour la gestion des risques climatiques",
-    "BCBS-P3-2025": "BCBS, cadre volontaire de publication",
-    "NGFS-V": "NGFS, scénarios de long terme, phase V",
-    "EBA-ESG-2025": "EBA, orientations sur les risques ESG",
-    "ECB-2020": "BCE, guide sur les risques climatiques",
+    "BCBS-2022": "BCBS, principles for climate-related financial risks",
+    "BCBS-P3-2025": "BCBS, voluntary disclosure framework",
+    "NGFS-V": "NGFS long-term scenarios, Phase V",
+    "EBA-ESG-2025": "EBA, guidelines on ESG risks",
+    "ECB-2020": "ECB, guide on climate-related risks",
     "IFRS-S2": "ISSB, IFRS S2",
-    "BCT-91-24": "BCT, circulaire n\\textsuperscript{o}~91-24",
-    "BCT-2018-06": "BCT, circulaire n\\textsuperscript{o}~2018-06",
-    "BCT-ROADMAP": "BCT, feuille de route 2026--2030",
-    "LOI-2004-63": "Loi organique n\\textsuperscript{o}~2004-63",
+    "BCT-91-24": "Central Bank of Tunisia, circular 91-24",
+    "BCT-2018-06": "Central Bank of Tunisia, circular 2018-06",
+    "BCT-ROADMAP": "Central Bank of Tunisia, 2026--2030 roadmap",
+    "LOI-2004-63": "Organic law no.~2004-63",
 }
 SHORT_DATE = {
-    "BCBS-2022": "juin 2022", "BCBS-P3-2025": "juin 2025", "NGFS-V": "nov. 2024", "EBA-ESG-2025": "janv. 2025",
-    "ECB-2020": "nov. 2020", "IFRS-S2": "juin 2023", "BCT-91-24": "1991, modifiée", "BCT-2018-06": "juin 2018",
-    "BCT-ROADMAP": "nov. 2026", "LOI-2004-63": "juill. 2004",
+    "BCBS-2022": "Jun. 2022", "BCBS-P3-2025": "Jun. 2025", "NGFS-V": "Nov. 2024", "EBA-ESG-2025": "Jan. 2025",
+    "ECB-2020": "Nov. 2020", "IFRS-S2": "Jun. 2023", "BCT-91-24": "1991, amended", "BCT-2018-06": "Jun. 2018",
+    "BCT-ROADMAP": "Nov. 2026", "LOI-2004-63": "Jul. 2004",
 }
 
 
 def fr(x: float, d: int = 1) -> str:
-    s = f"{x:,.{d}f}".replace(",", "\\,").replace(".", "{,}")
+    s = f"{x:,.{d}f}"
     return s
 
 
@@ -69,7 +69,7 @@ def context() -> dict:
     a = yaml.safe_load((root / "config/assumptions.yaml").read_text(encoding="utf-8"))
     reg = yaml.safe_load((root / "config/regulatory_matrix.yaml").read_text(encoding="utf-8"))["texts"]
     P, H = k["periods"], k["hazard_means"]
-    labels = {"baseline": "Climat actuel (2010--2014)", "ssp245_2030": "SSP2-4.5, 2030", "ssp245_2050": "SSP2-4.5, 2050",
+    labels = {"baseline": "Current climate (2010--2014)", "ssp245_2030": "SSP2-4.5, 2030", "ssp245_2050": "SSP2-4.5, 2050",
               "ssp585_2030": "SSP5-8.5, 2030", "ssp585_2050": "SSP5-8.5, 2050"}
     rows = []
     for p, label in labels.items():
@@ -83,7 +83,7 @@ def context() -> dict:
                      "vt": "--" if p == "baseline" else signed(d["el_add_vs_today_tnd"]["med"] / 1e6)})
     sec = k["by_sector"]["ssp585_2050"]
     gov = sorted(k["by_governorate"]["ssp585_2050"].items(), key=lambda kv: -kv[1]["el_add_bp_med"])[:5]
-    govs = ", ".join(f"{g} ({fr(v['el_add_bp_med'], 0)}~pb)" for g, v in gov[:-1]) + f" et {gov[-1][0]} ({fr(gov[-1][1]['el_add_bp_med'], 0)}~pb)"
+    govs = ", ".join(f"{g} ({fr(v['el_add_bp_med'], 0)}~bp)" for g, v in gov[:-1]) + f" and {gov[-1][0]} ({fr(gov[-1][1]['el_add_bp_med'], 0)}~bp)"
     sens = pd.DataFrame(k["sensitivity"])
     beta = sens[sens.label.str.startswith("β")]
     w = sens[~sens.label.str.startswith("β")]
@@ -91,9 +91,9 @@ def context() -> dict:
     pr = json.loads((root / "outputs/physrisk_comparison.json").read_text())
     today = date.today()
     return {
-        "figdir": str(root / "outputs/paper/fr"),
+        "figdir": str(root / "outputs/paper/en"),
         "date": f"{MONTHS[today.month - 1]} {today.year}".upper(),
-        "n": f"{k['meta']['n_loans']:,}".replace(",", "\\,"), "ngov": k["meta"]["n_governorates"],
+        "n": f"{k['meta']['n_loans']:,}", "ngov": k["meta"]["n_governorates"],
         "ead": fr(k["meta"]["total_ead_tnd"] / 1e9, 0),
         "sh0": fr(100 * P["baseline"]["share_ead_high"]["med"]), "sh5": fr(100 * P["ssp585_2050"]["share_ead_high"]["med"]),
         "sh5lo": fr(100 * P["ssp585_2050"]["share_ead_high"]["p10"]), "sh5hi": fr(100 * P["ssp585_2050"]["share_ead_high"]["p90"]),
@@ -125,7 +125,7 @@ def build_report(out_pdf: Path | None = None) -> Path:
 
     root = project_root()
     out_pdf = out_pdf or root / "docs/report.pdf"
-    render_all(("fr",))
+    render_all(("en",))
     env = Environment(loader=FileSystemLoader(str(root / "report")), block_start_string=r"\BLOCK{", block_end_string="}",
                       variable_start_string=r"\VAR{", variable_end_string="}", comment_start_string=r"\#{",
                       comment_end_string="}", trim_blocks=True, autoescape=False)

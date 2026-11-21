@@ -57,6 +57,29 @@ def main() -> None:
                      "prchange_pct": round(hm["prchange_pct"], 1)})
     write("scenarios", rows, "outputs/kpis.json → periods, hazard_means")
 
+    # every synthetic loan, current climate vs SSP5-8.5 2050 (for the map story)
+    b = assets[assets.period == "baseline"].set_index("loan_id")
+    f = assets[assets.period == "ssp585_2050"].set_index("loan_id")
+    loans = [{"lon": round(r.lon, 3), "lat": round(r.lat, 3), "ead_m": round(r.ead_tnd / 1e6, 3),
+              "sector": sector_en[r.sector], "c0": round(r.composite, 3), "c5": round(f.loc[i, "composite"], 3),
+              "hh0": int(r.high_hazard), "hh5": int(f.loc[i, "high_hazard"])} for i, r in b.iterrows()]
+    write("loans", loans, "outputs/asset_results.parquet (baseline and ssp585_2050)")
+
+    gh = assets.groupby(["period", "governorate"]).agg(
+        hot35=("hot35", "mean"), cdd=("cdd", "mean"), prchange=("prchange", "mean"),
+        flood_share=("flood_depth_m", lambda s: 100 * (s > 0).mean()), fuel=("fuel", "mean")).reset_index()
+    write("gov_hazards", [{"period": r.period, "governorate": r.governorate, "hot35": round(r.hot35, 1),
+                           "cdd": round(r.cdd, 1), "prchange": round(r.prchange, 1),
+                           "flood_share": round(r.flood_share, 1), "fuel": round(100 * r.fuel, 1)}
+                          for r in gh.itertuples()], "outputs/asset_results.parquet (means by governorate)")
+
+    write("hazard_means", [{"period": p, "label": LABELS[p], "hot35": round(h["hot35_days"], 1),
+                            "cdd": round(h["cdd_days"], 1), "prchange": round(h["prchange_pct"], 1),
+                            "flood_share": round(100 * h["flood_exposed_share"], 1),
+                            "s_heat": round(h["heat"], 3), "s_drought": round(h["drought"], 3),
+                            "s_flood": round(h["flood"], 3), "s_fire": round(h["fire"], 3)}
+                           for p, h in k["hazard_means"].items()], "outputs/kpis.json → hazard_means")
+
     write("portfolio", [{"n_loans": k["meta"]["n_loans"], "n_governorates": k["meta"]["n_governorates"],
                          "total_ead_bn": round(k["meta"]["total_ead_tnd"] / 1e9, 3),
                          "el_base_m": round(k["meta"]["el_base_tnd"] / 1e6, 3),

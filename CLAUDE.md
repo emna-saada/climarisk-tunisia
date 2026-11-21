@@ -10,7 +10,7 @@ Rules for any Claude Code session working on this repository (from brief §3). R
 6. **Tests & reproducibility.** `pytest` per module with tiny test data in-repo; fixed random seed; locked `pyproject.toml`; `make demo` reproduces end-to-end; GitHub Actions CI.
 7. **Explicit assumptions.** Every coefficient (sector vulnerability, PD elasticity β, thresholds) lives in `config/assumptions.yaml` with a source or the mention "illustrative assumption". Sensitivity analysis is mandatory.
 8. **Honest results.** Portfolio figures are *illustrative* — never present them as real losses of a Tunisian bank. State limits: resolution, climate-model bias, retraction of Kotz et al. (2024) used by NGFS Phase V damage functions.
-9. **Vocabulary.** Write « géoinformatique », never « géomatique ». Code & technical docs in English; report and video in French (English optional).
+9. **Vocabulary and language.** Write "geoinformatics" (« géoinformatique »), never « géomatique ». Everything is in English: code, docs, report, website, video and LinkedIn material (Emna's decision, 21 Nov 2026).
 10. **Ask before acting** on anything irreversible or public: publishing the repo, LinkedIn posts, e-mails. Emna validates.
 
 Figures in the video and the report come **only** from `outputs/kpis.json` produced by the pipeline.

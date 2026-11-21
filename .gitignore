@@ -8,3 +8,6 @@ video/public/capture/*.webm
 video/voice_model/*.onnx
 .pytest_cache/
 .ruff_cache/
+.venv
+data/raw
+video/node_modules
