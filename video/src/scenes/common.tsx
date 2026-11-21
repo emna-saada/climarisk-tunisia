@@ -60,7 +60,7 @@ export const Counter: React.FC<{ from: number; to: number; delay: number; dur?: 
     easing: (x) => 1 - Math.pow(1 - x, 3) });
   return (
     <span style={{ fontFamily: '"JetBrains Mono", monospace', fontWeight: 700, fontSize: size, color, fontVariantNumeric: 'tabular-nums' }}>
-      {v.toFixed(decimals).replace('.', ',')}{suffix}
+      {v.toFixed(decimals)}{suffix}
     </span>
   );
 };

@@ -13,7 +13,7 @@ def main(argv: list[str] | None = None) -> None:
     r.add_argument("--scenario", choices=["ssp245", "ssp585"], default=None,
                    help="print the KPIs of one scenario after the run")
     r.add_argument("--horizon", choices=["2030", "2050"], default="2050")
-    sub.add_parser("maps", help="render PNG hazard maps")
+    sub.add_parser("maps", help="render the figures (PDF + PNG) to outputs/paper/en")
     sub.add_parser("report", help="typeset the PDF report with LaTeX")
     args = ap.parse_args(argv)
 
@@ -26,8 +26,8 @@ def main(argv: list[str] | None = None) -> None:
         key = f"{args.scenario}_{args.horizon}" if args.scenario else None
         print(json.dumps(k["periods"][key] if key else k["periods"], indent=2, default=float))
     elif args.cmd == "maps":
-        from .maps import render_all
-        render_all()
+        from .paperfigs import render_all
+        print(render_all(("en",)))
     elif args.cmd == "report":
         from .latex_report import build_report
         print(build_report())

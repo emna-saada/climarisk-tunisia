@@ -12,13 +12,13 @@ export const Hook: React.FC<Props> = ({ svg, kpi }) => {
   return (
     <AbsoluteFill style={{ flexDirection: 'row', alignItems: 'center', padding: '0 120px', gap: 80 }}>
       <div style={{ flex: 1 }}>
-        <Title size={76} delay={8}>Quand le climat change,</Title>
-        <Title size={76} delay={22} color={C.amber}>le risque de crédit change aussi.</Title>
+        <Title size={76} delay={8}>When the climate shifts,</Title>
+        <Title size={76} delay={22} color={C.amber}>credit risk shifts with it.</Title>
         <div style={{ marginTop: 40, fontFamily: FONT, fontSize: 30, color: C.mist, opacity: s, maxWidth: 820, lineHeight: 1.4 }}>
-          {kpi.n.toLocaleString('fr-FR')} crédits synthétiques · {kpi.ngov} gouvernorats · chaleur, sécheresse, inondation, feux
+          {kpi.n.toLocaleString('en-GB')} synthetic loans · {kpi.ngov} governorates · heat, drought, flood, wildfire
         </div>
         <div style={{ marginTop: 26, display: 'flex', gap: 16, opacity: s, fontFamily: FONT }}>
-          {['Aujourd’hui', 'SSP5-8.5 · 2050'].map((l, i) => (
+          {['Today', 'SSP5-8.5 · 2050'].map((l, i) => (
             <div key={l} style={{ padding: '8px 18px', borderRadius: 99, fontSize: 22, fontWeight: 600,
               background: (i === 0 ? t < 0.5 : t >= 0.5) ? C.amber : 'rgba(255,255,255,0.1)',
               color: (i === 0 ? t < 0.5 : t >= 0.5) ? C.ink : C.mist }}>{l}</div>

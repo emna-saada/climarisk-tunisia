@@ -90,13 +90,13 @@ def sensitivity(df: pd.DataFrame, assumptions: dict | None = None, period: str =
                      "el_add": total(apply_credit(sub, a, m))})
     pert = a["sensitivity"]["weight_perturbation"]
     from .hazards import HAZARDS
-    FR = {"heat": "chaleur", "drought": "sécheresse", "flood": "inondation", "fire": "feux"}
+    FR = {"heat": "heat", "drought": "drought", "flood": "flood", "fire": "fire"}
     for h in HAZARDS:
         for sign in (-1, 1):
             a2 = copy.deepcopy(a)
             for s in a2["vulnerability"]:
                 a2["vulnerability"][s][h] = max(0.0, a2["vulnerability"][s][h] * (1 + sign * pert))
-            rows.append({"test": "weight", "label": f"poids {FR[h]} {'+' if sign > 0 else '−'}{int(pert*100)} %",
+            rows.append({"test": "weight", "label": f"weight {FR[h]} {'+' if sign > 0 else '−'}{int(pert*100)} %",
                          "value": sign * pert, "el_add": total(apply_credit(sub, a2))})
     out = pd.DataFrame(rows)
     out["delta_pct"] = 100 * (out["el_add"] / base - 1)

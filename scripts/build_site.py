@@ -23,12 +23,6 @@ def main() -> None:
         shutil.copy2(f, SITE / "data" / f.name)
     dl = SITE / "downloads"
     dl.mkdir(parents=True, exist_ok=True)
-    from climarisk.paperfigs import render_all  # English journal-style figures for the site
-
-    render_all(("en",))
-    for src, dst in (("fig_heat", "map_heat"), ("fig_drought", "map_drought"), ("fig_flood", "map_flood"),
-                     ("fig_fire", "map_fire"), ("fig_portfolio", "map_portfolio"), ("fig_gov", "map_el_governorate")):
-        shutil.copy2(ROOT / f"outputs/paper/en/{src}.png", dl / f"{dst}.png")
     shutil.copy2(ROOT / "docs/report.pdf", dl / "report.pdf")
     video = ROOT / "video/out/climarisk_demo.mp4"
     if video.exists():

@@ -16,7 +16,7 @@ from .hazards import HAZARDS, asset_hazards
 from .portfolio import generate_portfolio
 
 PERIOD_LABELS = {
-    "baseline": "Aujourd'hui",
+    "baseline": "Current climate",
     "ssp245_2030": "SSP2-4.5 · 2030",
     "ssp245_2050": "SSP2-4.5 · 2050",
     "ssp585_2030": "SSP5-8.5 · 2030",
@@ -68,7 +68,7 @@ def run(out_dir: Path | None = None, portfolio: gpd.GeoDataFrame | None = None, 
     kpis = {
         "meta": {
             "generated": date.today().isoformat(), "version": __version__,
-            "disclaimer": "Portefeuille 100 % synthétique — chiffres illustratifs, à calibrer sur des données bancaires réelles.",
+            "disclaimer": "100 % synthetic portfolio — illustrative figures, to be calibrated on real bank data.",
             "n_loans": len(pf), "n_governorates": int(pf["governorate"].nunique()),
             "total_ead_tnd": total_ead, "cmip6_models": sorted(res["model"].unique().tolist()),
             "period_labels": PERIOD_LABELS,

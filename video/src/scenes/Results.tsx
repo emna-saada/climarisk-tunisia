@@ -4,7 +4,7 @@ import { C, FONT, riskColor } from '../theme';
 import type { Props } from '../types';
 import { Card, Counter, Title, useAppear } from './common';
 
-const SC: Record<string, string> = { baseline: '#7A8B8F', ssp245: C.teal, ssp585: C.red };
+const SC: Record<string, string> = { baseline: '#9B9A96', ssp245: '#2F78C2', ssp585: '#C9473A' };
 
 export const Results: React.FC<Props> = ({ kpi, periods, heatmap, disclaimer }) => {
   const frame = useCurrentFrame();
@@ -14,33 +14,33 @@ export const Results: React.FC<Props> = ({ kpi, periods, heatmap, disclaimer }) 
   return (
     <AbsoluteFill style={{ padding: '140px 100px 150px 100px', fontFamily: FONT, color: C.white }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Title size={52} delay={5}>Ce que montre le pipeline</Title>
+        <Title size={52} delay={5}>What the pipeline shows</Title>
         <div style={{ padding: '8px 18px', borderRadius: 10, border: `1px solid ${C.amber}`, background: 'rgba(217,119,6,0.15)',
           color: '#FBD38D', fontSize: 20, fontWeight: 600, maxWidth: 640 }}>{disclaimer}</div>
       </div>
       <div style={{ display: 'flex', gap: 28, marginTop: 30 }}>
         <Card delay={20} style={{ flex: 1 }}>
-          <div style={{ fontSize: 22, color: C.mist, letterSpacing: 2, fontWeight: 600 }}>EAD EN ZONE D’ALÉA ÉLEVÉ</div>
+          <div style={{ fontSize: 22, color: C.mist, letterSpacing: 2, fontWeight: 600 }}>BOOK IN A HIGH-HAZARD ZONE</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 20, marginTop: 6 }}>
             <Counter from={0} to={kpi.share0} delay={30} suffix=" %" size={64} color={C.mist} />
             <span style={{ fontSize: 50, color: C.amber }}>→</span>
             <Counter from={kpi.share0} to={kpi.share5} delay={70} dur={70} suffix=" %" size={96} color={C.amber} />
           </div>
-          <div style={{ fontSize: 22, color: C.mist }}>aujourd’hui → SSP5-8.5 · 2050 · bande modèles {kpi.share5_p10.toFixed(1).replace('.', ',')}–{kpi.share5_p90.toFixed(1).replace('.', ',')} %</div>
+          <div style={{ fontSize: 22, color: C.mist }}>today → SSP5-8.5 · 2050 · model range {kpi.share5_p10.toFixed(1)}–{kpi.share5_p90.toFixed(1)} %</div>
         </Card>
         <Card delay={120} accent={C.red} style={{ flex: 1 }}>
-          <div style={{ fontSize: 22, color: C.mist, letterSpacing: 2, fontWeight: 600 }}>EL CLIMATIQUE ADDITIONNELLE · 2050</div>
+          <div style={{ fontSize: 22, color: C.mist, letterSpacing: 2, fontWeight: 600 }}>CLIMATE-ADJUSTED EXTRA EXPECTED LOSS · 2050</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginTop: 6 }}>
             <Counter from={0} to={kpi.el5} delay={140} dur={60} suffix=" M TND" size={84} />
           </div>
           <div style={{ fontSize: 22, color: C.mist }}>
-            soit <b style={{ color: C.white }}>{kpi.bp5.toFixed(0)} pb</b> de l’EAD · dont <b style={{ color: C.white }}>+{kpi.vt5.toFixed(1).replace('.', ',')} M</b> vs aujourd’hui · bande {kpi.el5_p10.toFixed(1).replace('.', ',')}–{kpi.el5_p90.toFixed(1).replace('.', ',')} M
+            <b style={{ color: C.white }}>{kpi.bp5.toFixed(0)} bp</b> of exposure · <b style={{ color: C.white }}>+{kpi.vt5.toFixed(1)} M</b> vs today · range {kpi.el5_p10.toFixed(1)}–{kpi.el5_p90.toFixed(1)} M
           </div>
         </Card>
       </div>
       <div style={{ display: 'flex', gap: 28, marginTop: 28, alignItems: 'flex-start' }}>
         <Card delay={260} accent={C.teal} style={{ flex: 1.15 }}>
-          <div style={{ fontSize: 22, color: C.mist, fontWeight: 600, letterSpacing: 2 }}>EL ADDITIONNELLE PAR SCÉNARIO (M TND, médiane et 10–90 %)</div>
+          <div style={{ fontSize: 22, color: C.mist, fontWeight: 600, letterSpacing: 2 }}>EXTRA EXPECTED LOSS BY SCENARIO (M TND, median and 10–90 %)</div>
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 26, height: H, marginTop: 16, paddingBottom: 6 }}>
             {periods.map((p, i) => {
               const g = interpolate(frame, [290 + i * 25, 330 + i * 25], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
@@ -48,7 +48,7 @@ export const Results: React.FC<Props> = ({ kpi, periods, heatmap, disclaimer }) 
               const lo = (p.p10 / vmax) * (H - 70); const hi = (p.p90 / vmax) * (H - 70);
               return (
                 <div key={p.key} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
-                  <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 + Math.max(0, hi - h), opacity: g, fontFamily: '"JetBrains Mono"' }}>{p.med.toFixed(1).replace('.', ',')}</div>
+                  <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 + Math.max(0, hi - h), opacity: g, fontFamily: '"JetBrains Mono"' }}>{p.med.toFixed(1)}</div>
                   <div style={{ width: '100%', height: h, background: SC[p.key.split('_')[0]], borderRadius: '8px 8px 0 0', position: 'relative' }}>
                     <div style={{ position: 'absolute', left: '50%', width: 2, background: C.white, opacity: g * 0.8,
                       bottom: lo - h + h, height: hi - lo, transform: 'translateX(-1px)', top: undefined }} />
@@ -60,7 +60,7 @@ export const Results: React.FC<Props> = ({ kpi, periods, heatmap, disclaimer }) 
           </div>
         </Card>
         <Card delay={540} accent={C.amber} style={{ flex: 1 }}>
-          <div style={{ fontSize: 22, color: C.mist, fontWeight: 600, letterSpacing: 2 }}>SECTEUR × ALÉA · SSP5-8.5 · 2050</div>
+          <div style={{ fontSize: 22, color: C.mist, fontWeight: 600, letterSpacing: 2 }}>SECTOR × HAZARD · SSP5-8.5 · 2050</div>
           <div style={{ display: 'grid', gridTemplateColumns: `200px repeat(${heatmap.cols.length}, 1fr)`, gap: 4, marginTop: 14, opacity: hm }}>
             <div />
             {heatmap.cols.map((c) => <div key={c} style={{ fontSize: 17, color: C.mist, textAlign: 'center' }}>{c}</div>)}

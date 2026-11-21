@@ -14,7 +14,7 @@ Project code: **MIT**. No dataset is redistributed in the repository (only tiny 
 | geoBoundaries gbOpen TUN ADM1 | Governorate boundaries | GitHub release (pinned commit 9469f09) | ODbL 1.0 (source OpenStreetMap / Wambacher) — as reported by the geoBoundaries API | Yes — "© OpenStreetMap contributors, geoBoundaries" |
 | Natural Earth 1:10m coastline | Coastal buffer | naturalearth.s3.amazonaws.com | Public domain | No (courtesy credit given) |
 | OS-Climate physrisk hazard indicators (OSC chronic heat v2, OSC drought v2) | Comparison only (milestone 6) | `s3://os-climate-physical-risk` | Distributed with the Apache-2.0 physrisk project; dataset-level terms to re-check | Yes — OS-Climate |
-| Piper voice `fr_FR-siwis-medium` (video voice-over) | Text-to-speech voice model | huggingface.co/rhasspy/piper-voices | Trained on the SIWIS French Speech Synthesis database (CC BY 4.0), fine-tuned from a Hi-Fi TTS voice (Hi-Fi TTS dataset, CC BY 4.0) | Yes — credited on the video end screen |
+| Piper voice `en_US-ljspeech-high` (video voice-over) | Text-to-speech voice model | huggingface.co/rhasspy/piper-voices | Trained on the LJ Speech dataset (public domain) | Courtesy credit on the video end screen |
 | CARTO basemap (dashboard) | Background map tiles | pydeck "light" style | CARTO free tier terms for non-commercial use; © OpenStreetMap contributors | Yes |
 
 Not used (and why): ERA5-Land (needs a CDS account → replaced by the NEX-GDDP historical run), CHIRPS / MODIS MCD64A1 (planned through Earth Engine Community tier once Emna authenticates), CLIMADA (GPL-3.0, optional and not installed).

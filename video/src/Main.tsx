@@ -11,8 +11,8 @@ import { Showcase } from './scenes/Showcase';
 import { Outro } from './scenes/Outro';
 
 const LABELS: Record<string, string> = {
-  hook: 'Accroche', origin: "L'origine de l'idée", regulation: 'Cadre réglementaire', method: 'Données et méthode',
-  results: 'Résultats', showcase: 'Tableau de bord', outro: 'Limites et suite',
+  hook: 'Opening', origin: 'Where the idea comes from', regulation: 'Regulatory context', method: 'Data and method',
+  results: 'Results', showcase: 'The website', outro: 'Limits and next steps',
 };
 
 const Captions: React.FC<{ scene: Scene }> = ({ scene }) => {

@@ -1,87 +1,75 @@
 1
-00:00:00,600 --> 00:00:04,052
-Quand le climat change, le risque de crédit change aussi.
+00:00:00,600 --> 00:00:03,967
+When the climate shifts, credit risk shifts with it.
 
 2
-00:00:04,052 --> 00:00:05,567
-Voici ClimaRisk Tunisie :
+00:00:03,967 --> 00:00:09,859
+This is ClimaRisk Tunisia: a map of the physical climate risk inside a bank loan portfolio.
 
 3
-00:00:05,567 --> 00:00:09,928
-la carte des risques climatiques physiques d'un portefeuille de crédits.
+00:00:15,599 --> 00:00:22,097
+The floods in Nabeul in 2018, droughts that hit the cereal harvest, record heat.
 
 4
-00:00:15,599 --> 00:00:21,359
-Inondations de Nabeul en 2018, sécheresses qui frappent les céréales, records de chaleur :
+00:00:22,097 --> 00:00:26,239
+The assets that Tunisian banks finance are exposed.
 
 5
-00:00:21,359 --> 00:00:25,263
-les actifs financés par les banques tunisiennes sont exposés.
+00:00:26,239 --> 00:00:37,448
+In November 2026, according to the Tunisian press, the central bank launched a roadmap on green finance and climate risk for 2026 to 2030.
 
 6
-00:00:25,263 --> 00:00:35,758
-En novembre 2026, la Banque Centrale de Tunisie a lancé, selon la presse tunisienne, une feuille de route 2026-2030 sur la finance verte et les risques climatiques.
+00:00:37,448 --> 00:00:42,158
+This project sits where banking risk meets climate change.
 
 7
-00:00:35,758 --> 00:00:39,981
-Ce projet se place entre risque bancaire et changement climatique.
+00:00:43,758 --> 00:01:06,052
+The rules have been built step by step: the Basel principles in 2022, the IFRS S2 standard in 2023, phase five of the NGFS scenarios in 2024, the European Banking Authority guidelines and the voluntary Basel disclosure framework in 2025, then the Tunisian roadmap.
 
 8
-00:00:41,581 --> 00:00:43,830
-Le cadre s'est construit pas à pas :
+00:01:06,052 --> 00:01:08,501
+The tool helps banks prepare.
 
 9
-00:00:43,830 --> 00:00:59,448
-les principes du Comité de Bâle en 2022, la norme IFRS S2 en 2023, les scénarios NGFS de phase cinq en 2024, les orientations de l'Autorité bancaire européenne et le cadre volontaire de publication de Bâle en 2025, puis la feuille de route de la BCT.
+00:01:08,501 --> 00:01:10,950
+It does not claim compliance.
 
 10
-00:00:59,448 --> 00:01:03,321
-L'outil prépare ces attentes, sans prétendre à une conformité.
+00:01:12,550 --> 00:01:20,387
+The data are fully open: NASA climate projections, WRI flood maps, ESA land cover and WorldPop population.
 
 11
-00:01:06,581 --> 00:01:08,876
-Les données sont entièrement ouvertes :
+00:01:20,387 --> 00:01:31,552
+For each loan, the method combines hazard, exposure and the vulnerability of its sector, then adjusts the probability of default and the expected loss.
 
 12
-00:01:08,876 --> 00:01:16,172
-projections climatiques CMIP6 de la NASA, cartes d'inondation Aqueduct, occupation du sol WorldCover et population WorldPop.
+00:01:31,552 --> 00:01:35,840
+The portfolio of two thousand loans is entirely synthetic.
 
 13
-00:01:16,172 --> 00:01:24,233
-Pour chaque crédit, on croise aléa, exposition et vulnérabilité du secteur, puis on ajuste la probabilité de défaut et la perte attendue.
+00:01:37,550 --> 00:01:48,837
+The result: the share of the loan book in a high-hazard zone rises from 1.5 percent today to 22.4 percent in 2050, under the high-emissions scenario.
 
 14
-00:01:24,233 --> 00:01:28,293
-Le portefeuille de deux mille crédits est cent pour cent synthétique.
+00:01:48,837 --> 00:01:57,321
+The extra expected loss reaches 8.8 million dinars, or 29 basis points of the book, 4.8 million more than today.
 
 15
-00:01:31,581 --> 00:01:32,206
-Résultat :
+00:01:57,321 --> 00:02:00,730
+These figures describe a synthetic portfolio.
 
 16
-00:01:32,206 --> 00:01:40,703
-la part de l'encours située en zone d'aléa élevé passe de 1,5 pour cent aujourd'hui à 22,4 pour cent en 2050, dans le scénario SSP5 8,5.
+00:02:00,730 --> 00:02:08,381
+Cereals and olives are the most affected sectors, and the spread between climate models remains wide.
 
 17
-00:01:40,703 --> 00:01:50,262
-La perte attendue climatique additionnelle atteint 8,8 millions de dinars, soit 29 points de base de l'encours, dont 4,8 millions de plus qu'aujourd'hui.
+00:02:16,550 --> 00:02:26,244
+The website tells the story on a single map, then lets you switch scenarios, explore the governorates and sectors, and download the working paper and the data.
 
 18
-00:01:50,262 --> 00:01:53,573
-Ces chiffres portent sur un portefeuille synthétique.
+00:02:42,550 --> 00:02:48,012
+These figures are illustrative and must be calibrated on real bank data.
 
 19
-00:01:53,573 --> 00:02:01,008
-Céréaliculture et oléiculture sont les secteurs les plus touchés, et l'écart entre modèles climatiques reste important.
-
-20
-00:02:16,581 --> 00:02:25,741
-Le tableau de bord permet de choisir le scénario et l'horizon, d'explorer la carte des gouvernorats, d'ouvrir la fiche de chaque crédit, puis d'exporter les tableaux et le rapport PDF.
-
-21
-00:02:46,581 --> 00:02:51,368
-Ces chiffres sont illustratifs, à calibrer sur des données bancaires réelles.
-
-22
-00:02:51,368 --> 00:02:55,968
-ClimaRisk Tunisie, un projet open source d'Emna Saada, en géoinformatique.
+00:02:48,012 --> 00:02:53,701
+ClimaRisk Tunisia, an open-source project by Emna Saada, in geoinformatics.

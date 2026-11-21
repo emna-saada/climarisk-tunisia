@@ -29,8 +29,8 @@ site:               ## static results site for GitHub Pages -> site/ (preview: p
 app:                ## Streamlit dashboard on http://localhost:8501
 	$(PY) streamlit run app/streamlit_app.py
 
-video:              ## dashboard capture + animated MP4 -> video/out/climarisk_demo.mp4
-	cd video && npm install && npm run capture && npm run build   # needs `make app` running
+video:              ## website capture + animated MP4 -> video/out/climarisk_demo.mp4
+	cd video && npm install && npm run capture && npm run build   # serve site/ on :8765 first
 
 demo: run maps report site   ## reproduce the demo end-to-end (after `make data`)
 

@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated": "2026-11-20",
+    "generated": "2026-11-21",
     "version": "0.1.0",
-    "disclaimer": "Portefeuille 100 % synthétique — chiffres illustratifs, à calibrer sur des données bancaires réelles.",
+    "disclaimer": "100 % synthetic portfolio — illustrative figures, to be calibrated on real bank data.",
     "n_loans": 2000,
     "n_governorates": 24,
     "total_ead_tnd": 3000000200.0,
@@ -14,7 +14,7 @@
       "MRI-ESM2-0"
     ],
     "period_labels": {
-      "baseline": "Aujourd'hui",
+      "baseline": "Current climate",
       "ssp245_2030": "SSP2-4.5 · 2030",
       "ssp245_2050": "SSP2-4.5 · 2050",
       "ssp585_2030": "SSP5-8.5 · 2030",
@@ -1390,7 +1390,7 @@
   "top20_ssp585_2050": [
     {
       "loan_id": "SYN-00535",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Sfax",
       "ead_tnd": 10140800.0,
       "composite": 0.2845465908239346,
@@ -1398,7 +1398,7 @@
     },
     {
       "loan_id": "SYN-01498",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Mahdia",
       "ead_tnd": 10871400.0,
       "composite": 0.31487605269981234,
@@ -1406,7 +1406,7 @@
     },
     {
       "loan_id": "SYN-01945",
-      "sector_label": "Chimie & phosphates",
+      "sector_label": "Chemicals and phosphates",
       "governorate": "Gafsa",
       "ead_tnd": 8535200.0,
       "composite": 0.4794149495815565,
@@ -1414,7 +1414,7 @@
     },
     {
       "loan_id": "SYN-00337",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Jendouba",
       "ead_tnd": 9442900.0,
       "composite": 0.33732633877898593,
@@ -1422,7 +1422,7 @@
     },
     {
       "loan_id": "SYN-01367",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Manouba",
       "ead_tnd": 8714000.0,
       "composite": 0.25413112826219786,
@@ -1430,7 +1430,7 @@
     },
     {
       "loan_id": "SYN-00360",
-      "sector_label": "Tourisme côtier",
+      "sector_label": "Coastal tourism",
       "governorate": "Monastir",
       "ead_tnd": 11389200.0,
       "composite": 0.2730024638333308,
@@ -1438,7 +1438,7 @@
     },
     {
       "loan_id": "SYN-00704",
-      "sector_label": "Tourisme côtier",
+      "sector_label": "Coastal tourism",
       "governorate": "Médenine",
       "ead_tnd": 4560200.0,
       "composite": 0.5619981594397165,
@@ -1446,7 +1446,7 @@
     },
     {
       "loan_id": "SYN-01433",
-      "sector_label": "Chimie & phosphates",
+      "sector_label": "Chemicals and phosphates",
       "governorate": "Gafsa",
       "ead_tnd": 9056800.0,
       "composite": 0.47415249232313555,
@@ -1454,7 +1454,7 @@
     },
     {
       "loan_id": "SYN-01819",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Sfax",
       "ead_tnd": 12628900.0,
       "composite": 0.2712385527438317,
@@ -1462,7 +1462,7 @@
     },
     {
       "loan_id": "SYN-00313",
-      "sector_label": "Céréaliculture",
+      "sector_label": "Cereals",
       "governorate": "Zaghouan",
       "ead_tnd": 2987300.0,
       "composite": 0.3955854870823393,
@@ -1470,7 +1470,7 @@
     },
     {
       "loan_id": "SYN-00105",
-      "sector_label": "Tourisme côtier",
+      "sector_label": "Coastal tourism",
       "governorate": "Médenine",
       "ead_tnd": 11374200.0,
       "composite": 0.329142426352874,
@@ -1478,7 +1478,7 @@
     },
     {
       "loan_id": "SYN-01450",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Mahdia",
       "ead_tnd": 12443900.0,
       "composite": 0.2912682735473293,
@@ -1486,7 +1486,7 @@
     },
     {
       "loan_id": "SYN-00536",
-      "sector_label": "Oléiculture",
+      "sector_label": "Olives",
       "governorate": "Sidi Bouzid",
       "ead_tnd": 3955700.0,
       "composite": 0.44482105320265813,
@@ -1494,7 +1494,7 @@
     },
     {
       "loan_id": "SYN-00652",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Tunis",
       "ead_tnd": 7099300.0,
       "composite": 0.2440279165066247,
@@ -1510,7 +1510,7 @@
     },
     {
       "loan_id": "SYN-00918",
-      "sector_label": "Chimie & phosphates",
+      "sector_label": "Chemicals and phosphates",
       "governorate": "Sfax",
       "ead_tnd": 11015900.0,
       "composite": 0.35983764226389775,
@@ -1518,7 +1518,7 @@
     },
     {
       "loan_id": "SYN-01385",
-      "sector_label": "Chimie & phosphates",
+      "sector_label": "Chemicals and phosphates",
       "governorate": "Gafsa",
       "ead_tnd": 9095300.0,
       "composite": 0.4626148611583059,
@@ -1526,7 +1526,7 @@
     },
     {
       "loan_id": "SYN-01388",
-      "sector_label": "Céréaliculture",
+      "sector_label": "Cereals",
       "governorate": "Kairouan",
       "ead_tnd": 3445900.0,
       "composite": 0.42554608597119586,
@@ -1534,7 +1534,7 @@
     },
     {
       "loan_id": "SYN-01713",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Siliana",
       "ead_tnd": 6271300.0,
       "composite": 0.26854563027639555,
@@ -1542,7 +1542,7 @@
     },
     {
       "loan_id": "SYN-01896",
-      "sector_label": "BTP",
+      "sector_label": "Construction",
       "governorate": "Mahdia",
       "ead_tnd": 5486200.0,
       "composite": 0.3534221747379659,
@@ -1571,42 +1571,42 @@
       "delta_pct": 98.41707586826193
     },
     {
-      "label": "poids chaleur −25 %",
+      "label": "weight heat −25 %",
       "el_add": 8475062.112182265,
       "delta_pct": -4.212453404901428
     },
     {
-      "label": "poids chaleur +25 %",
+      "label": "weight heat +25 %",
       "el_add": 9163203.593760097,
       "delta_pct": 3.565116052189432
     },
     {
-      "label": "poids sécheresse −25 %",
+      "label": "weight drought −25 %",
       "el_add": 8462696.650990354,
       "delta_pct": -4.352211341116141
     },
     {
-      "label": "poids sécheresse +25 %",
+      "label": "weight drought +25 %",
       "el_add": 9182652.141054764,
       "delta_pct": 3.784929028842088
     },
     {
-      "label": "poids inondation −25 %",
+      "label": "weight flood −25 %",
       "el_add": 9470077.658825181,
       "delta_pct": 7.033493441895677
     },
     {
-      "label": "poids inondation +25 %",
+      "label": "weight flood +25 %",
       "el_add": 8321382.8805620875,
       "delta_pct": -5.949379502275631
     },
     {
-      "label": "poids feux −25 %",
+      "label": "weight fire −25 %",
       "el_add": 8982010.191260273,
       "delta_pct": 1.517217021487527
     },
     {
-      "label": "poids feux +25 %",
+      "label": "weight fire +25 %",
       "el_add": 8722766.460277267,
       "delta_pct": -1.4128288746159567
     }

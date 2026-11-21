@@ -4,81 +4,81 @@
 texts:
   - id: BCBS-2022
     title: "BCBS — Principles for the effective management and supervision of climate-related financial risks"
-    date: "15 juin 2022"
+    date: "15 June 2022"
     url: "https://www.bis.org/bcbs/publ/d532.htm"
-    status: "page BIS vérifiée — numérotation des principes à relire dans le PDF"
-    requirement: "18 principes : 1-12 pour les banques (gouvernance, contrôle interne, adéquation du capital et de la liquidité, gestion des risques de crédit et autres, analyse de scénarios), 13-18 pour les superviseurs."
-    modules: ["credit.py — intégration au risque de crédit (ΔPD, LGD, EL)", "reporting / kpis.json — données et reporting interne", "scenarios.yaml — analyse de scénarios SSP/NGFS"]
-    coverage: partielle
+    status: "BIS page verified — principle numbering to be re-read in the PDF"
+    requirement: "18 principles: 1–12 for banks (governance, internal control, capital and liquidity adequacy, credit and other risk management, scenario analysis), 13–18 for supervisors."
+    modules: ["credit.py — integration into credit risk (ΔPD, LGD, EL)", "kpis.json — data and internal reporting", "scenarios.yaml — SSP/NGFS scenario analysis"]
+    coverage: partial
   - id: BCBS-P3-2025
-    title: "BCBS — Framework for the voluntary disclosure of climate-related financial risks"
-    date: "13 juin 2025"
+    title: "BCBS — A framework for the voluntary disclosure of climate-related financial risks"
+    date: "13 June 2025"
     url: "https://www.bis.org/bcbs/publ/d597.htm"
-    status: "vérifié"
-    requirement: "Cadre volontaire de publication (Pilier 3 climatique), qualitatif et quantitatif ; adoption laissée à chaque juridiction."
-    modules: ["Onglet Reporting — tableaux d'exposition aux risques physiques par secteur et gouvernorat"]
-    coverage: inspirée
+    status: "verified"
+    requirement: "Voluntary disclosure framework (climate Pillar 3), qualitative and quantitative; adoption left to each jurisdiction."
+    modules: ["Reporting tab — physical-risk exposure tables by sector and governorate"]
+    coverage: inspired by
   - id: NGFS-V
-    title: "NGFS — Scénarios climatiques, Phase V"
-    date: "5 novembre 2024"
+    title: "NGFS — Long-term climate scenarios, Phase V"
+    date: "5 November 2024"
     url: "https://www.ngfs.net/ngfs-scenarios-portal/data-resources/"
-    status: "vérifié (+ déclaration NGFS du 3 déc. 2025 sur la rétractation de Kotz et al. 2024)"
-    requirement: "Scénarios de référence des banques centrales ; fonction de dommage PIB (variables Kotz-Wenz) fondée sur Kotz et al. (2024), article rétracté de Nature ; les autres variables restent valides selon le NGFS."
-    modules: ["scenarios.yaml — correspondance NGFS ↔ SSP2-4.5 / SSP5-8.5", "Pas d'utilisation de la fonction de dommage PIB du NGFS"]
+    status: "verified (+ NGFS statement of 3 Dec 2025 on the retraction of Kotz et al. 2024)"
+    requirement: "Central bank reference scenarios; the GDP-damage function (Kotz-Wenz variables) relies on Kotz et al. (2024), retracted from Nature; NGFS states other variables remain valid."
+    modules: ["scenarios.yaml — NGFS ↔ SSP2-4.5 / SSP5-8.5 mapping", "NGFS GDP-damage function not used"]
     coverage: narrative
   - id: EBA-ESG-2025
     title: "EBA — Guidelines on the management of ESG risks (EBA/GL/2025/01)"
-    date: "9 janvier 2025 ; applicables au 11 janvier 2026 (11 janvier 2027 pour les petits établissements non complexes)"
+    date: "9 January 2025; apply from 11 January 2026 (11 January 2027 for small and non-complex institutions)"
     url: "https://www.eba.europa.eu/publications-and-media/press-releases/eba-publishes-its-final-guidelines-management-esg-risks"
-    status: "dates confirmées par sources secondaires"
-    requirement: "Identifier, mesurer, gérer et suivre les risques ESG sur des horizons court, moyen et long terme."
-    modules: ["Horizons aujourd'hui / 2030 / 2050", "Analyse de sensibilité"]
+    status: "dates confirmed by secondary sources"
+    requirement: "Identify, measure, manage and monitor ESG risks over short, medium and long horizons."
+    modules: ["Horizons today / 2030 / 2050", "Sensitivity analysis"]
     coverage: benchmark
   - id: ECB-2020
-    title: "BCE — Guide relatif aux risques liés au climat et à l'environnement"
-    date: "novembre 2020"
+    title: "ECB — Guide on climate-related and environmental risks"
+    date: "November 2020"
     url: "https://www.bankingsupervision.europa.eu"
-    status: "vérifié"
-    requirement: "Attentes prudentielles : intégration dans la gestion des risques, ICAAP, Pilier 2."
-    modules: ["Rapport — section usages Pilier 2 / ICAAP"]
-    coverage: bonne pratique
+    status: "verified"
+    requirement: "Supervisory expectations: integration into risk management, ICAAP and Pillar 2."
+    modules: ["Working paper — section on Pillar 2 / ICAAP uses"]
+    coverage: good practice
   - id: IFRS-S2
     title: "ISSB — IFRS S2 Climate-related Disclosures"
-    date: "juin 2023 ; exercices ouverts à partir du 1er janvier 2024"
+    date: "June 2023; periods beginning on or after 1 January 2024"
     url: "https://www.ifrs.org/issued-standards/ifrs-sustainability-standards-navigator/ifrs-s2-climate-related-disclosures/"
-    status: "vérifié"
-    requirement: "Gouvernance, stratégie, gestion des risques, indicateurs et cibles (reprend la logique TCFD)."
-    modules: ["Structure des sorties : indicateurs d'exposition physique, analyse de scénarios"]
-    coverage: "partielle (risque physique uniquement)"
+    status: "verified"
+    requirement: "Governance, strategy, risk management, metrics and targets (follows the TCFD structure)."
+    modules: ["Output structure: physical exposure metrics, scenario analysis"]
+    coverage: "partial (physical risk only)"
   - id: BCT-91-24
-    title: "BCT — Circulaire n° 91-24 (division, couverture des risques et suivi des engagements)"
-    date: "1991, modifiée (annexe III remplacée par la circulaire 2024-01)"
+    title: "Central Bank of Tunisia — Circular 91-24 (risk division, coverage and monitoring of commitments)"
+    date: "1991, amended (Annex III replaced by circular 2024-01)"
     url: "https://www.bct.gov.tn"
-    status: "sources secondaires — à revérifier sur bct.gov.tn"
-    requirement: "Cadre prudentiel du risque de crédit : division et couverture des risques, suivi des engagements."
-    modules: ["Agrégation par secteur / gouvernorat (concentration)"]
-    coverage: contexte
+    status: "secondary sources — to be re-checked on bct.gov.tn"
+    requirement: "Prudential framework for credit risk: risk division and coverage, monitoring of commitments."
+    modules: ["Aggregation by sector and governorate (concentration)"]
+    coverage: context
   - id: BCT-2018-06
-    title: "BCT — Circulaire n° 2018-06 (normes d'adéquation des fonds propres)"
-    date: "5 juin 2018"
+    title: "Central Bank of Tunisia — Circular 2018-06 (capital adequacy standards)"
+    date: "5 June 2018"
     url: "https://www.bct.gov.tn"
-    status: "sources secondaires — ratios non vérifiés, non cités"
-    requirement: "Normes d'adéquation des fonds propres."
-    modules: ["Perte attendue — base d'une future discussion Pilier 2"]
-    coverage: contexte
+    status: "secondary sources — ratios not verified, not quoted"
+    requirement: "Capital adequacy standards."
+    modules: ["Expected loss — basis for a future Pillar 2 discussion"]
+    coverage: context
   - id: BCT-ROADMAP
-    title: "BCT — Feuille de route finance verte / risques climatiques 2026-2030 (projet BCT–KfW)"
-    date: "clôture du projet le 3 novembre 2026"
+    title: "Central Bank of Tunisia — Green finance and climate risk roadmap 2026–2030 (BCT–KfW project)"
+    date: "project closed on 3 November 2026"
     url: "https://www.bct.gov.tn"
-    status: "presse tunisienne (Tustex, L'Économiste Maghrébin, La Presse) — à revérifier sur bct.gov.tn"
-    requirement: "Quatre piliers dont la gestion et la supervision des risques climatiques ; cartographie nationale des risques physiques mentionnée."
-    modules: ["Ensemble de l'outil : prépare les banques aux futures attentes, sans prétendre à la conformité"]
-    coverage: alignement
+    status: "Tunisian press (Tustex, L'Économiste Maghrébin, La Presse) — to be re-checked on bct.gov.tn"
+    requirement: "Four pillars, including management and supervision of climate risks; a national mapping of physical risks is mentioned."
+    modules: ["The tool as a whole: prepares banks for future expectations, without claiming compliance"]
+    coverage: alignment
   - id: LOI-2004-63
-    title: "Loi organique n° 2004-63 (protection des données personnelles, INPDP)"
-    date: "27 juillet 2004"
+    title: "Organic law no. 2004-63 (personal data protection, INPDP)"
+    date: "27 July 2004"
     url: "https://www.inpdp.tn"
-    status: "référence du brief, site non joignable depuis l'environnement"
-    requirement: "Traitement des données personnelles de clients soumis à des règles strictes."
-    modules: ["Portefeuille 100 % synthétique, aucune donnée personnelle"]
-    coverage: respectée
+    status: "reference from the brief; website not reachable from the build environment"
+    requirement: "Processing of clients' personal data is subject to strict rules."
+    modules: ["Fully synthetic portfolio, no personal data"]
+    coverage: respected

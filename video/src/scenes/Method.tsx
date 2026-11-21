@@ -6,9 +6,9 @@ import { Card, Title, useAppear } from './common';
 
 const SOURCES = ['NASA NEX-GDDP-CMIP6', 'WRI Aqueduct Floods', 'ESA WorldCover', 'WorldPop', 'geoBoundaries', 'OS-Climate physrisk'];
 const BLOCKS = [
-  { t: 'Aléa', d: 'chaleur · sécheresse · inondation · feux', c: '#D1495B' },
-  { t: 'Exposition', d: 'localisation et EAD de chaque crédit', c: C.teal },
-  { t: 'Vulnérabilité', d: 'sensibilité du secteur à chaque aléa', c: '#B7791F' },
+  { t: 'Hazard', d: 'heat · drought · flood · wildfire', c: '#D1495B' },
+  { t: 'Exposure', d: 'location and EAD of each loan', c: '#2A78D6' },
+  { t: 'Vulnerability', d: 'sector sensitivity to each hazard', c: '#C98500' },
 ];
 
 export const Method: React.FC<Props> = () => {
@@ -16,7 +16,7 @@ export const Method: React.FC<Props> = () => {
   const badge = useAppear(560);
   return (
     <AbsoluteFill style={{ padding: '150px 110px', fontFamily: FONT }}>
-      <Title size={58} delay={5}>Données ouvertes, méthode explicite</Title>
+      <Title size={58} delay={5}>Open data, explicit method</Title>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 36 }}>
         {SOURCES.map((s, i) => {
           const a = interpolate(frame, [20 + i * 12, 40 + i * 12], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
@@ -44,7 +44,7 @@ export const Method: React.FC<Props> = () => {
       </div>
       <div style={{ marginTop: 46, display: 'flex', justifyContent: 'center', opacity: badge, transform: `scale(${0.9 + 0.1 * badge})` }}>
         <div style={{ padding: '16px 34px', borderRadius: 16, background: C.amber, color: C.ink, fontSize: 32, fontWeight: 800 }}>
-          Portefeuille 100 % synthétique — aucune donnée personnelle
+          100 % synthetic portfolio · no personal data
         </div>
       </div>
     </AbsoluteFill>

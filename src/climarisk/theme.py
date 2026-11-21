@@ -13,7 +13,7 @@ AMBER = "#D97706"
 # Validated with the dataviz palette checker (light surface): lightness band, chroma, CVD; heat/drought and
 # flood/fire sit in the 6-8 CVD floor band, so every use carries direct labels.
 HAZARD_COLORS = {"heat": "#D1495B", "drought": "#C98500", "flood": "#2A78D6", "fire": "#8E44AD"}
-HAZARD_LABELS = {"heat": "Chaleur extrême", "drought": "Sécheresse", "flood": "Inondation", "fire": "Feux de forêt"}
+HAZARD_LABELS = {"heat": "Extreme heat", "drought": "Drought", "flood": "Flood", "fire": "Wildfire"}
 
 # Sequential risk scale, low -> high (perceptually ordered, colour-blind friendly endpoints)
 RISK_SCALE = ["#FFF4D6", "#FDD58A", "#F7A456", "#E2683C", "#B8323B", "#6E1434"]

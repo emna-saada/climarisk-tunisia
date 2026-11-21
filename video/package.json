@@ -8,7 +8,7 @@
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts ClimaRisk out/climarisk_demo.mp4 --props=public/props.json --codec=h264 --crf=20 --browser-executable=${BROWSER_EXECUTABLE:-/opt/pw-browsers/chromium/chrome-linux/chrome}",
     "build": "npm run props && npm run render",
-    "capture": "node scripts/record_dashboard.js && ffmpeg -y -loglevel error -i public/capture/dashboard.webm -c:v libx264 -pix_fmt yuv420p -r 30 -crf 20 public/capture/dashboard.mp4"
+    "capture": "node scripts/record_site.js && ffmpeg -y -loglevel error -i public/capture/site.webm -c:v libx264 -pix_fmt yuv420p -r 30 -crf 20 public/capture/site.mp4"
   },
   "dependencies": {
     "@remotion/cli": "4.0.545",

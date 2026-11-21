@@ -1,4 +1,4 @@
-"""ClimaRisk Tunisie — Streamlit dashboard.
+"""ClimaRisk Tunisie — Streamlit analysis tool.
 
 Run:  streamlit run app/streamlit_app.py   (after `make run`)
 All figures come from outputs/ produced by the pipeline. Portfolio is 100 % synthetic.
@@ -97,7 +97,7 @@ def load():
 
 data = load()
 if data is None:
-    st.error("Aucune sortie trouvée. Lancez d'abord `make run` (pipeline) pour produire outputs/kpis.json.")
+    st.error("No outputs found. Run `make run` first to produce outputs/kpis.json.")
     st.stop()
 K, A, BS, BG, BP, SENS, GOVS, REG, ASSUM = data
 LABELS = K["meta"]["period_labels"]
@@ -127,19 +127,19 @@ def plot_style(fig, h=380):
 # --------------------------------------------------------------------------- sidebar
 with st.sidebar:
     st.markdown("### ClimaRisk Tunisie")
-    st.caption("Risque climatique physique d'un portefeuille de crédits — démonstrateur géoinformatique")
-    scen = st.radio("Scénario", ["ssp245", "ssp585"], horizontal=True,
+    st.caption("Physical climate risk in a loan portfolio — a geoinformatics demonstrator")
+    scen = st.radio("Scenario", ["ssp245", "ssp585"], horizontal=True,
                     format_func=lambda s: {"ssp245": "SSP2-4.5", "ssp585": "SSP5-8.5"}[s])
-    hor = st.select_slider("Horizon", ["Aujourd'hui", "2030", "2050"], value="2050")
-    period = "baseline" if hor == "Aujourd'hui" else f"{scen}_{hor}"
-    sectors = st.multiselect("Secteurs", list(SECTOR_LABELS), default=list(SECTOR_LABELS),
+    hor = st.select_slider("Horizon", ["Today", "2030", "2050"], value="2050")
+    period = "baseline" if hor == "Today" else f"{scen}_{hor}"
+    sectors = st.multiselect("Sectors", list(SECTOR_LABELS), default=list(SECTOR_LABELS),
                              format_func=SECTOR_LABELS.get)
     st.markdown("---")
-    st.markdown(f"**Période affichée :** {LABELS[period]}")
-    st.caption("Médiane de 5 modèles CMIP6 (NEX-GDDP) ; bande 10–90 % entre modèles.")
+    st.markdown(f"**Showing:** {LABELS[period]}")
+    st.caption("Median of 5 CMIP6 models (NEX-GDDP); 10–90 % band across models.")
     st.markdown("---")
-    st.caption("Portefeuille 100 % synthétique (loi organique n° 2004-63). Chiffres illustratifs, "
-               "à calibrer sur des données bancaires réelles.")
+    st.caption("100 % synthetic portfolio (organic law no. 2004-63). Illustrative figures, "
+               "to be calibrated on real bank data.")
 
 sel = A[(A.period == period) & (A.sector.isin(sectors))]
 P = K["periods"][period]
@@ -147,27 +147,27 @@ P = K["periods"][period]
 # --------------------------------------------------------------------------- header
 st.markdown(f"""
 <div class="hero">
-  <span class="pill">Risque physique</span><span class="pill">CMIP6 · NGFS</span><span class="pill">Portefeuille synthétique</span>
+  <span class="pill">Physical risk</span><span class="pill">CMIP6 · NGFS</span><span class="pill">Synthetic portfolio</span>
   <h1>ClimaRisk Tunisie</h1>
-  <p>Des pixels satellites et climatiques aux indicateurs de risque de crédit : exposition de
-  {K['meta']['n_loans']:,} crédits répartis sur les {K['meta']['n_governorates']} gouvernorats à la chaleur extrême,
-  la sécheresse, l'inondation et les feux de forêt — aujourd'hui, en 2030 et en 2050.</p>
+  <p>From satellite and climate pixels to credit-risk indicators: how {K['meta']['n_loans']:,} loans across
+  {K['meta']['n_governorates']} governorates are exposed to extreme heat, drought, flooding and wildfire —
+  today, in 2030 and in 2050.</p>
 </div>
-""".replace("2,000", "2 000"), unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-tabs = st.tabs(["Accueil", "Carte", "Analyse", "Fiche crédit", "Reporting", "Réglementation", "Méthode & limites"])
+tabs = st.tabs(["Overview", "Map", "Analysis", "Loan sheet", "Reporting", "Regulation", "Method & limits"])
 
-# =========================================================================== Accueil
+# =========================================================================== Overview
 with tabs[0]:
     c = st.columns(4)
     el = P["el_add_tnd"]
     sh = P["share_ead_high"]
     cards = [
-        ("ink", "EAD totale", fmt_tnd(K["meta"]["total_ead_tnd"]) + " TND", f"{K['meta']['n_loans']} crédits synthétiques"),
-        ("accent", "EAD en zone d'aléa élevé", f"{100*sh['med']:.1f} %",
-         f"bande {100*sh['p10']:.1f} – {100*sh['p90']:.1f} % · un aléa matériel ≥ {ASSUM['high_hazard_threshold']}"),
+        ("ink", "Total EAD", fmt_tnd(K["meta"]["total_ead_tnd"]) + " TND", f"{K['meta']['n_loans']} synthetic loans"),
+        ("accent", "EAD in a high-hazard zone", f"{100*sh['med']:.1f} %",
+         f"band {100*sh['p10']:.1f} – {100*sh['p90']:.1f} % · a material hazard ≥ {ASSUM['high_hazard_threshold']}"),
         ("red", "EL climatique additionnelle", fmt_tnd(el["med"]) + " TND",
-         f"dont {fmt_tnd(P['el_add_vs_today_tnd']['med'])} de plus qu'aujourd'hui · bande {fmt_tnd(el['p10'])} – {fmt_tnd(el['p90'])}"),
+         f"{fmt_tnd(P['el_add_vs_today_tnd']['med'])} more than today · band {fmt_tnd(el['p10'])} – {fmt_tnd(el['p90'])}"),
         ("teal", "Soit, en points de base", f"{P['el_add_bp']['med']:.1f} pb",
          f"de l'EAD · EL de base {fmt_tnd(K['meta']['el_base_tnd'])} TND"),
     ]
@@ -186,7 +186,7 @@ with tabs[0]:
                          arrayminus=(bp.el_add_med - bp.el_add_p10) / 1e6, color=T.INK, thickness=1.2, width=6),
             hovertemplate="%{x}<br>EL additionnelle : %{y:.2f} M TND<extra></extra>"))
         fig.update_yaxes(title="M TND")
-        st.plotly_chart(plot_style(fig.update_layout(title="EL climatique additionnelle par scénario (médiane, 10–90 %)")),
+        st.plotly_chart(plot_style(fig.update_layout(title="Climate-adjusted extra expected loss by scenario (median, 10–90 %)")),
                         use_container_width=True)
     with right:
         s = BS[BS.period == period].copy()
@@ -199,19 +199,19 @@ with tabs[0]:
         fig.update_xaxes(title="M TND")
         st.plotly_chart(plot_style(fig.update_layout(title=f"EL additionnelle par secteur · {LABELS[period]}")),
                         use_container_width=True)
-    st.markdown('<div class="note"><b>Lecture.</b> L\'EL additionnelle compare la perte attendue avec PD et LGD '
-                'ajustées du score d\'aléa à la perte attendue de base. Le portefeuille est synthétique : ces montants '
-                'illustrent la méthode, ils ne décrivent aucune banque tunisienne.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="note"><b>How to read this.</b> Extra expected loss compares expected loss with PD and LGD '
+                'adjusted by the hazard score against baseline expected loss. The portfolio is synthetic: these amounts '
+                'illustrate the method and describe no Tunisian bank.</div>', unsafe_allow_html=True)
 
-# =========================================================================== Carte
+# =========================================================================== Map
 with tabs[1]:
     mcol, ccol = st.columns([3, 1])
     with ccol:
-        layer_choice = st.radio("Colorer les crédits par", ["composite", *HAZ],
-                                format_func=lambda h: "Score composite" if h == "composite" else theme.HAZARD_LABELS[h])
-        show_gov = st.toggle("Gouvernorats colorés par EL additionnelle (pb)", value=True)
-        size_by_ead = st.toggle("Taille proportionnelle à l'EAD", value=True)
-        st.caption("Survolez un point pour voir le crédit. Fond de carte © CARTO / © OpenStreetMap.")
+        layer_choice = st.radio("Colour loans by", ["composite", *HAZ],
+                                format_func=lambda h: "Composite score" if h == "composite" else theme.HAZARD_LABELS[h])
+        show_gov = st.toggle("Shade governorates by extra EL (bp)", value=True)
+        size_by_ead = st.toggle("Size by EAD", value=True)
+        st.caption("Hover a dot to see the loan. Basemap © CARTO / © OpenStreetMap.")
     pts = sel.copy()
     vals = pts[layer_choice].clip(0, 1).to_numpy()
     ramp = np.array([[int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16)] for c in theme.RISK_SCALE])
@@ -245,10 +245,10 @@ with tabs[1]:
             layers=layers, map_style="light",
             initial_view_state=pdk.ViewState(latitude=34.0, longitude=9.6, zoom=5.6, pitch=0),
             tooltip={"html": "<b>{loan_id}</b> · {sector_label}<br/>{governorate}<br/>EAD {ead_txt} TND<br/>"
-                             "Score : {score_txt}/100", "style": {"fontFamily": "Fira Sans", "fontSize": "12px"}}),
+                             "Score: {score_txt}/100", "style": {"fontFamily": "Fira Sans", "fontSize": "12px"}}),
             use_container_width=True, height=640)
 
-# =========================================================================== Analyse
+# =========================================================================== Analysis
 with tabs[2]:
     hm = pd.DataFrame(K["heatmap_sector_hazard"][period]).T[HAZ]
     hm.index = hm.index.map(SECTOR_LABELS)
@@ -257,8 +257,8 @@ with tabs[2]:
     with l:
         fig = px.imshow(hm.round(2), text_auto=".2f", aspect="auto", zmin=0, zmax=1,
                         color_continuous_scale=theme.RISK_SCALE)
-        fig.update_traces(hovertemplate="%{y} · %{x}<br>Score moyen pondéré EAD : %{z:.2f}<extra></extra>")
-        st.plotly_chart(plot_style(fig.update_layout(title=f"Heatmap secteur × aléa · {LABELS[period]}",
+        fig.update_traces(hovertemplate="%{y} · %{x}<br>EAD-weighted mean score: %{z:.2f}<extra></extra>")
+        st.plotly_chart(plot_style(fig.update_layout(title=f"Sector × hazard heatmap · {LABELS[period]}",
                                                      coloraxis_colorbar=dict(title="score", thickness=10)).update_xaxes(tickangle=0, title=None), 460),
                         use_container_width=True)
     with r:
@@ -267,7 +267,7 @@ with tabs[2]:
                                error_x=dict(type="data", symmetric=False, array=g.el_add_bp_p90 - g.el_add_bp_med,
                                             arrayminus=g.el_add_bp_med - g.el_add_bp_p10, color="#9AA7AA", thickness=1),
                                marker_color=T.PETROL, hovertemplate="%{y} : %{x:.1f} pb<extra></extra>"))
-        st.plotly_chart(plot_style(fig.update_layout(title="EL additionnelle par gouvernorat (pb de l'EAD)"), 460),
+        st.plotly_chart(plot_style(fig.update_layout(title="Extra EL by governorate (bp of EAD)"), 460),
                         use_container_width=True)
     l, r = st.columns(2)
     with l:
@@ -275,52 +275,52 @@ with tabs[2]:
         for sc in ("ssp245", "ssp585"):
             for p in ("baseline", f"{sc}_2030", f"{sc}_2050"):
                 row = BP[BP.period == p].iloc[0]
-                rows.append({"scénario": {"ssp245": "SSP2-4.5", "ssp585": "SSP5-8.5"}[sc],
-                             "horizon": {"baseline": "Aujourd'hui"}.get(p, p[-4:]),
+                rows.append({"scenario": {"ssp245": "SSP2-4.5", "ssp585": "SSP5-8.5"}[sc],
+                             "horizon": {"baseline": "Today"}.get(p, p[-4:]),
                              "med": row.el_add_med / 1e6, "p10": row.el_add_p10 / 1e6, "p90": row.el_add_p90 / 1e6})
         d = pd.DataFrame(rows)
         fig = go.Figure()
         for sc, col in (("SSP2-4.5", T.TEAL), ("SSP5-8.5", "#B8323B")):
-            q = d[d["scénario"] == sc]
+            q = d[d["scenario"] == sc]
             fig.add_trace(go.Scatter(x=list(q.horizon) + list(q.horizon[::-1]), y=list(q.p90) + list(q.p10[::-1]),
                                      fill="toself", fillcolor=col, opacity=0.15, line=dict(width=0),
                                      hoverinfo="skip", showlegend=False))
             fig.add_trace(go.Scatter(x=q.horizon, y=q.med, mode="lines+markers", name=sc,
                                      line=dict(color=col, width=3), marker=dict(size=9)))
         fig.update_yaxes(title="M TND")
-        st.plotly_chart(plot_style(fig.update_layout(title="Aujourd'hui → 2030 → 2050 (médiane et bande 10–90 %)")),
+        st.plotly_chart(plot_style(fig.update_layout(title="Today → 2030 → 2050 (median and 10–90 % band)")),
                         use_container_width=True)
     with r:
         s = SENS.copy()
         fig = go.Figure(go.Bar(y=s.label, x=s.delta_pct, orientation="h",
                                marker_color=np.where(s.delta_pct >= 0, "#B8323B", T.TEAL),
                                hovertemplate="%{y} : %{x:+.1f} %<extra></extra>"))
-        fig.update_xaxes(title="variation de l'EL additionnelle (%) · SSP5-8.5 2050")
-        st.plotly_chart(plot_style(fig.update_layout(title="Analyse de sensibilité (β et poids des aléas)")),
+        fig.update_xaxes(title="change in extra EL (%) · SSP5-8.5 2050")
+        st.plotly_chart(plot_style(fig.update_layout(title="Sensitivity analysis (β and hazard weights)")),
                         use_container_width=True)
-    st.markdown("##### Top 20 des expositions — EL additionnelle")
+    st.markdown("##### Top 20 exposures by extra EL")
     top = sel.nlargest(20, "el_add")[["loan_id", "sector_label", "governorate", "ead_tnd", "composite",
                                       *HAZ, "pd_base", "pd_climate", "el_add"]]
-    st.dataframe(top.rename(columns={"sector_label": "secteur", "ead_tnd": "EAD (TND)", "el_add": "EL add. (TND)",
-                                     "pd_base": "PD base", "pd_climate": "PD climat"}),
+    st.dataframe(top.rename(columns={"sector_label": "sector", "ead_tnd": "EAD (TND)", "el_add": "Extra EL (TND)",
+                                     "pd_base": "Base PD", "pd_climate": "Climate PD"}),
                  hide_index=True, use_container_width=True,
                  column_config={"composite": st.column_config.ProgressColumn("score", min_value=0, max_value=1, format="%.2f"),
                                 "EAD (TND)": st.column_config.NumberColumn(format="%.0f"),
-                                "EL add. (TND)": st.column_config.NumberColumn(format="%.0f"),
-                                "PD base": st.column_config.NumberColumn(format="%.3f"),
-                                "PD climat": st.column_config.NumberColumn(format="%.3f")})
+                                "Extra EL (TND)": st.column_config.NumberColumn(format="%.0f"),
+                                "Base PD": st.column_config.NumberColumn(format="%.3f"),
+                                "Climate PD": st.column_config.NumberColumn(format="%.3f")})
 
-# =========================================================================== Fiche crédit
+# =========================================================================== Loan sheet
 with tabs[3]:
     default = sel.nlargest(1, "el_add").loan_id.iloc[0] if len(sel) else A.loan_id.iloc[0]
     ids = sorted(A.loan_id.unique())
-    lid = st.selectbox("Crédit", ids, index=ids.index(default))
+    lid = st.selectbox("Loan", ids, index=ids.index(default))
     one = A[A.loan_id == lid].set_index("period").loc[theme.PERIOD_ORDER]
     info = one.iloc[0]
     c = st.columns(4)
-    for col, (lab, val) in zip(c, [("Secteur", info.sector_label), ("Gouvernorat", info.governorate),
-                                   ("EAD", fmt_tnd(info.ead_tnd) + " TND"), ("Garantie · maturité",
-                                   f"{info.collateral} · {info.maturity_years} ans")]):
+    for col, (lab, val) in zip(c, [("Sector", info.sector_label), ("Governorate", info.governorate),
+                                   ("EAD", fmt_tnd(info.ead_tnd) + " TND"), ("Collateral · maturity",
+                                   f"{info.collateral} · {info.maturity_years} years")]):
         col.markdown(f'<div class="kpi teal"><div class="lab">{lab}</div><div class="val" style="font-size:1.2rem">{val}</div></div>',
                      unsafe_allow_html=True)
     st.write("")
@@ -333,111 +333,111 @@ with tabs[3]:
         fig.add_trace(go.Scatter(name="Composite", x=[LABELS[p] for p in one.index], y=one.composite,
                                  mode="lines+markers", line=dict(color=T.INK, width=3)))
         fig.update_yaxes(range=[0, 1], title="score 0-1")
-        st.plotly_chart(plot_style(fig.update_layout(barmode="group", title="Scores d'aléa par période")), use_container_width=True)
+        st.plotly_chart(plot_style(fig.update_layout(barmode="group", title="Hazard scores by period")), use_container_width=True)
     with r:
         p0 = one.loc[period]
-        st.markdown(f"""<div class="card"><h4>Effet sur la PD · {LABELS[period]}</h4>
+        st.markdown(f"""<div class="card"><h4>Effect on PD · {LABELS[period]}</h4>
         <p style="font-family:'Fira Code';font-size:1.3rem;margin:4px 0">{100*p0.pd_base:.2f} % → <b>{100*p0.pd_climate:.2f} %</b></p>
         <p style="color:{T.MUTED};margin:0">LGD {100*p0.lgd_base:.0f} % → {100*p0.lgd_climate:.0f} % ·
         EL {fmt_tnd(p0.el_base)} → {fmt_tnd(p0.el_climate)} TND</p></div>""", unsafe_allow_html=True)
         beta = ASSUM["beta"].get(info.sector, ASSUM["beta"]["default"])
         V = ASSUM["vulnerability"][info.sector]
-        st.markdown(f"""<div class="card"><h4>Hypothèses appliquées</h4>
-        <span class="tag">β secteur = {beta}</span><span class="tag">γ LGD inondation = {ASSUM['gamma_lgd_flood']}</span>
-        <span class="tag">seuil aléa élevé = {ASSUM['high_hazard_threshold']}</span><br/>
-        Vulnérabilité : {' · '.join(f"{theme.HAZARD_LABELS[h]} {V[h]}" for h in HAZ)}<br/>
-        <span class="tag warn">hypothèses illustratives — config/assumptions.yaml</span></div>""", unsafe_allow_html=True)
-        st.markdown(f"""<div class="card"><h4>Indicateurs physiques (médiane modèles)</h4>
-        Jours &gt; 35 °C : <b>{p0.hot35:.0f}</b> /an · Jours secs consécutifs : <b>{p0.cdd:.0f}</b> ·
-        Δ précipitations : <b>{p0.prchange:+.1f} %</b><br/>Profondeur crue 100 ans : <b>{p0.flood_depth_m:.2f} m</b> ·
-        Végétation combustible : <b>{100*p0.fuel:.0f} %</b></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div class="card"><h4>Assumptions applied</h4>
+        <span class="tag">sector β = {beta}</span><span class="tag">flood LGD γ = {ASSUM['gamma_lgd_flood']}</span>
+        <span class="tag">high-hazard threshold = {ASSUM['high_hazard_threshold']}</span><br/>
+        Vulnerability: {' · '.join(f"{theme.HAZARD_LABELS[h]} {V[h]}" for h in HAZ)}<br/>
+        <span class="tag warn">illustrative assumptions — config/assumptions.yaml</span></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div class="card"><h4>Physical indicators (model median)</h4>
+        Days &gt; 35 °C: <b>{p0.hot35:.0f}</b> /yr · Longest dry spell: <b>{p0.cdd:.0f}</b> days ·
+        Δ rainfall: <b>{p0.prchange:+.1f} %</b><br/>100-year flood depth: <b>{p0.flood_depth_m:.2f} m</b> ·
+        Burnable vegetation: <b>{100*p0.fuel:.0f} %</b></div>""", unsafe_allow_html=True)
 
 # =========================================================================== Reporting
 with tabs[4]:
-    st.markdown("#### Tableaux d'exposition aux risques physiques — inspirés du cadre volontaire BCBS (juin 2025)")
-    st.caption("Format illustratif : le cadre BCBS d597 est volontaire et son adoption laissée à chaque juridiction.")
+    st.markdown("#### Physical-risk exposure tables — inspired by the voluntary BCBS framework (June 2025)")
+    st.caption("Illustrative format: the BCBS d597 framework is voluntary and adoption is left to each jurisdiction.")
     t = sel.copy()
-    t["bande"] = pd.cut(t.composite, [-0.01, 0.25, 0.5, 0.75, 1.0], labels=["faible", "modéré", "élevé", "très élevé"])
-    tab1 = t.pivot_table(index="sector_label", columns="bande", values="ead_tnd", aggfunc="sum",
+    t["band"] = pd.cut(t.composite, [-0.01, 0.25, 0.5, 0.75, 1.0], labels=["low", "moderate", "high", "very high"])
+    tab1 = t.pivot_table(index="sector_label", columns="band", values="ead_tnd", aggfunc="sum",
                          observed=False, fill_value=0) / 1e6
     tab1["Total (M TND)"] = tab1.sum(1)
-    st.markdown("**EAD par secteur et niveau d'aléa physique composite (M TND)**")
+    st.markdown("**EAD by sector and composite physical hazard level (M TND)**")
     st.dataframe(tab1.round(1), use_container_width=True)
     dom = t[HAZ].idxmax(axis=1).map(theme.HAZARD_LABELS)
-    tab2 = t.assign(aléa_dominant=dom).pivot_table(index="governorate", columns="aléa_dominant", values="ead_tnd",
+    tab2 = t.assign(dominant_hazard=dom).pivot_table(index="governorate", columns="dominant_hazard", values="ead_tnd",
                                                     aggfunc="sum", fill_value=0) / 1e6
-    st.markdown("**EAD par gouvernorat et aléa dominant (M TND)**")
+    st.markdown("**EAD by governorate and dominant hazard (M TND)**")
     st.dataframe(tab2.round(1), use_container_width=True)
     c1, c2, c3 = st.columns(3)
-    c1.download_button("Exporter les crédits (CSV)", sel.to_csv(index=False).encode("utf-8"),
+    c1.download_button("Export loans (CSV)", sel.to_csv(index=False).encode("utf-8"),
                        f"climarisk_{period}.csv", "text/csv", use_container_width=True)
-    c2.download_button("Exporter le tableau secteur (CSV)", tab1.to_csv().encode("utf-8"),
-                       f"climarisk_secteur_{period}.csv", "text/csv", use_container_width=True)
+    c2.download_button("Export sector table (CSV)", tab1.to_csv().encode("utf-8"),
+                       f"climarisk_sector_{period}.csv", "text/csv", use_container_width=True)
     pdf = ROOT / "docs/report.pdf"
     if pdf.exists():
-        c3.download_button("Rapport PDF", pdf.read_bytes(), "ClimaRisk_Tunisie_rapport.pdf", "application/pdf",
+        c3.download_button("Working paper (PDF)", pdf.read_bytes(), "ClimaRisk_Tunisie_working_paper.pdf", "application/pdf",
                            use_container_width=True)
     else:
-        c3.info("Rapport PDF : lancer `make report`.")
+        c3.info("Working paper: run `make report`.")
 
-# =========================================================================== Réglementation
+# =========================================================================== Regulation
 with tabs[5]:
-    st.markdown("#### Matrice de conformité — ce que l'outil couvre")
-    st.markdown('<div class="note">L\'outil <b>prépare</b> les banques aux attentes climatiques ; il ne prétend '
-                'à aucune conformité réglementaire. Statut des sources vérifié le 20/11/2026 (docs/research_log.md).</div>',
+    st.markdown("#### Compliance matrix — what the tool covers")
+    st.markdown('<div class="note">The tool helps banks <b>prepare</b> for climate expectations; it claims no '
+                'regulatory compliance. Source status checked on 20/11/2026 (docs/research_log.md).</div>',
                 unsafe_allow_html=True)
     st.write("")
     cols = st.columns(2)
     for i, tx in enumerate(REG["texts"]):
-        warn = "warn" if ("secondaire" in tx["status"] or "revérifier" in tx["status"] or "non" in tx["status"]) else ""
+        warn = "warn" if ("secondary" in tx["status"] or "re-check" in tx["status"] or "not" in tx["status"]) else ""
         mods = "".join(f"<li>{m}</li>" for m in tx["modules"])
         cols[i % 2].markdown(f"""<div class="card"><h4><a href="{tx['url']}" target="_blank" style="color:{T.PETROL};text-decoration:none">{tx['title']}</a></h4>
-        <span class="tag">{tx['date']}</span><span class="tag {warn}">{tx['status']}</span><span class="tag">couverture : {tx['coverage']}</span>
+        <span class="tag">{tx['date']}</span><span class="tag {warn}">{tx['status']}</span><span class="tag">coverage: {tx['coverage']}</span>
         <p style="margin:8px 0 4px 0">{tx['requirement']}</p><ul style="margin:0;color:{T.MUTED}">{mods}</ul></div>""",
                              unsafe_allow_html=True)
 
-# =========================================================================== Méthode
+# =========================================================================== Method
 with tabs[6]:
     l, r = st.columns([1.2, 1])
     with l:
         st.markdown("""
-#### Méthode — expliquée pour un comité des risques
-**1. Aléa.** Pour chaque crédit, on mesure quatre aléas physiques à sa localisation :
-- *Chaleur extrême* — jours par an avec Tmax > 35 °C (NASA NEX-GDDP-CMIP6, 5 modèles) ;
-- *Sécheresse* — jours secs consécutifs et variation des précipitations par rapport à 2010-2014 ;
-- *Inondation* — profondeur d'eau d'une crue centennale, fluviale ou côtière (WRI Aqueduct) ;
-- *Feux de forêt* — végétation combustible dans un rayon de 2 km (ESA WorldCover) × météo de feu.
+#### Method — explained for a risk committee
+**1. Hazard.** For each loan, four physical hazards are measured at its location:
+- *Extreme heat* — days per year with Tmax > 35 °C (NASA NEX-GDDP-CMIP6, 5 models);
+- *Drought* — longest dry spell and rainfall change against 2010–2014;
+- *Flood* — water depth of the 100-year flood, river or coastal (WRI Aqueduct);
+- *Wildfire* — burnable vegetation within 2 km (ESA WorldCover) × fire weather.
 
-Chaque indicateur est ramené à un score 0-1 par des bornes physiques fixes (comparables entre scénarios).
+Each indicator is mapped to a 0–1 score with fixed physical bounds (comparable across scenarios).
 
-**2. Exposition × vulnérabilité.** Le score composite pondère les aléas par la sensibilité du secteur
-(la céréaliculture pluviale craint d'abord la sécheresse, l'hôtellerie côtière l'inondation).
+**2. Exposure × vulnerability.** The composite score weights hazards by the sector's sensitivity
+(rain-fed cereals fear drought first, coastal hotels fear flooding).
 
-**3. Traduction crédit.**
+**3. Credit translation.**
 """)
         st.latex(r"PD_{s} = \min\left(1,\ PD_{base}\,(1 + \beta_{secteur}\,Score_{s})\right)")
         st.latex(r"LGD_{s} = \min\left(1,\ LGD\,(1 + \gamma\,Score^{inond}_{s})\right),\qquad EL_{s} = PD_{s}\,LGD_{s}\,EAD")
         st.markdown("""
-**4. Agrégation** par secteur, gouvernorat et scénario ; incertitude = dispersion entre modèles climatiques
-(médiane et intervalle 10–90 %).
+**4. Aggregation** by sector, governorate and scenario; uncertainty = spread across climate models
+(median and 10–90 % range).
 """)
     with r:
-        st.markdown("""<div class="card"><h4>Limites à garder en tête</h4><ul>
-<li>Portefeuille <b>100 % synthétique</b> : chiffres illustratifs.</li>
-<li>Résolution : 0,25° (~25 km) pour le climat, ~1 km pour l'inondation, ~320 m pour la végétation.</li>
-<li>Biais des modèles climatiques ; 5 modèles seulement, 3 années par horizon.</li>
-<li>Aqueduct utilise des projections CMIP5 (RCP4.5/8.5) servant de proxy aux SSP.</li>
-<li>β, γ et la matrice de vulnérabilité sont des hypothèses à calibrer sur des défauts observés.</li>
-<li>La fonction de dommage PIB du NGFS Phase V repose sur Kotz et al. (2024), article rétracté (déclaration NGFS du 3 décembre 2025) : elle n'est pas utilisée.</li>
-<li>Inondation : référence WATCH vs projections GCM non homogènes ; appariement modèles CMIP6 ↔ GCM Aqueduct arbitraire.</li>
-<li>Pas de risque de transition, pas d'effets de second ordre (chaînes d'approvisionnement, macroéconomie).</li>
+        st.markdown("""<div class="card"><h4>Limits to keep in mind</h4><ul>
+<li><b>100 % synthetic</b> portfolio: illustrative figures.</li>
+<li>Resolution: 0.25° (~25 km) for climate, ~1 km for flooding, ~320 m for vegetation.</li>
+<li>Climate-model bias; only 5 models and 3 years per horizon.</li>
+<li>Aqueduct uses CMIP5 projections as a proxy for the SSPs.</li>
+<li>β, γ and the vulnerability matrix are assumptions to be calibrated on observed defaults.</li>
+<li>The NGFS Phase V GDP-damage function relies on Kotz et al. (2024), retracted (NGFS statement, 3 December 2025): it is not used.</li>
+<li>Flood: WATCH baseline vs GCM projections are not like-for-like; the CMIP6 ↔ Aqueduct model pairing is arbitrary.</li>
+<li>No transition risk and no second-round effects (supply chains, macroeconomy).</li>
 </ul></div>""", unsafe_allow_html=True)
-        st.markdown("""<div class="card"><h4>Sources de données ouvertes</h4>
+        st.markdown("""<div class="card"><h4>Open data sources</h4>
 <span class="tag">NASA NEX-GDDP-CMIP6</span><span class="tag">WRI Aqueduct Floods</span><span class="tag">ESA WorldCover</span>
 <span class="tag">WorldPop</span><span class="tag">geoBoundaries</span><span class="tag">Natural Earth</span>
-<span class="tag">OS-Climate physrisk</span><p style="margin-top:8px;color:#5B6B70">Licences détaillées : docs/LICENSES_DATA.md</p></div>""",
+<span class="tag">OS-Climate physrisk</span><p style="margin-top:8px;color:#5B6B70">Licence details: docs/LICENSES_DATA.md</p></div>""",
                     unsafe_allow_html=True)
 
 st.markdown(f"<p style='text-align:center;color:{T.MUTED};font-size:.8rem;margin-top:24px'>ClimaRisk Tunisie · "
-            "Emna Saada — géoinformatique, MSE (Université de la Manouba) · code MIT · données ouvertes</p>",
+            "Emna Saada — geoinformatics, MSE (Université de la Manouba) · MIT code · open data</p>",
             unsafe_allow_html=True)

@@ -5,12 +5,12 @@ import type { Props } from '../types';
 import { Title, useAppear } from './common';
 
 const STEPS = [
-  { y: '2022', t: 'BCBS', d: 'Principes de gestion des risques climatiques (18 principes)', cov: 'Risque de crédit · scénarios' },
-  { y: '2023', t: 'IFRS S2', d: 'Publication climatique (logique TCFD)', cov: 'Indicateurs d’exposition' },
-  { y: '2024', t: 'NGFS Phase V', d: 'Scénarios des banques centrales', cov: 'Récit SSP2-4.5 / SSP5-8.5' },
-  { y: '2025', t: 'ABE · ESG', d: 'Orientations sur la gestion des risques ESG', cov: 'Horizons 2030 / 2050' },
-  { y: '2025', t: 'BCBS Pilier 3', d: 'Cadre volontaire de publication', cov: 'Onglet Reporting' },
-  { y: '2026', t: 'BCT', d: 'Feuille de route 2026-2030', cov: 'Préparer les attentes' },
+  { y: '2022', t: 'BCBS', d: 'Principles for climate-related financial risks (18 principles)', cov: 'Credit risk · scenarios' },
+  { y: '2023', t: 'IFRS S2', d: 'Climate-related disclosures (TCFD logic)', cov: 'Exposure metrics' },
+  { y: '2024', t: 'NGFS Phase V', d: 'Central bank climate scenarios', cov: 'SSP2-4.5 / SSP5-8.5 narrative' },
+  { y: '2025', t: 'EBA · ESG', d: 'Guidelines on managing ESG risks', cov: 'Horizons 2030 / 2050' },
+  { y: '2025', t: 'BCBS Pillar 3', d: 'Voluntary disclosure framework', cov: 'Exposure tables' },
+  { y: '2026', t: 'BCT', d: '2026–2030 roadmap', cov: 'Prepare for expectations' },
 ];
 
 export const Regulation: React.FC<Props> = () => {
@@ -19,7 +19,7 @@ export const Regulation: React.FC<Props> = () => {
   const note = useAppear(620);
   return (
     <AbsoluteFill style={{ padding: '150px 110px', fontFamily: FONT }}>
-      <Title size={58} delay={5}>Un cadre qui se construit pas à pas</Title>
+      <Title size={58} delay={5}>A framework built step by step</Title>
       <div style={{ position: 'relative', marginTop: 110, height: 520 }}>
         <div style={{ position: 'absolute', top: 60, left: 0, right: 0, height: 4, background: 'rgba(255,255,255,0.15)', borderRadius: 2 }} />
         <div style={{ position: 'absolute', top: 60, left: 0, width: `${prog * 100}%`, height: 4,
@@ -43,7 +43,7 @@ export const Regulation: React.FC<Props> = () => {
         </div>
       </div>
       <div style={{ position: 'absolute', bottom: 150, left: 110, fontSize: 26, color: C.mist, opacity: note }}>
-        L’outil <b style={{ color: C.white }}>prépare</b> ces attentes — il ne prétend à aucune conformité réglementaire.
+        The tool helps banks <b style={{ color: C.white }}>prepare</b> for these expectations. It claims no regulatory compliance.
       </div>
     </AbsoluteFill>
   );

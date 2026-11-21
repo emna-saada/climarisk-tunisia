@@ -1,4 +1,4 @@
-"""Build video/public/props.json, the French voice-over (Piper TTS) and subtitles.
+"""Build video/public/props.json, the English voice-over (Piper TTS) and subtitles.
 
 Every figure spoken or shown in the video is read from ../outputs/kpis.json (pipeline output).
 Usage (from video/):  ../.venv/bin/python scripts/make_props.py
@@ -17,54 +17,56 @@ VIDEO = Path(__file__).resolve().parents[1]
 ROOT = VIDEO.parent
 PUB = VIDEO / "public"
 FPS = 30
-VOICE = VIDEO / "voice_model/fr_FR-siwis-medium.onnx"
+SEC_EN = {"cereals": "Cereals", "olives": "Olives", "citrus": "Citrus", "agrifood": "Agrifood", "textile": "Textile",
+          "tourism": "Coastal tourism", "residential": "Housing", "construction": "Construction",
+          "chemicals": "Chemicals and phosphates", "energy": "Energy"}
+VOICE = VIDEO / "voice_model/en_US-ljspeech-high.onnx"
 
 
-def fr(x: float, d: int = 1) -> str:
-    return f"{x:.{d}f}".replace(".", ",")
+def en(x: float, d: int = 1) -> str:
+    return f"{x:.{d}f}"
 
 
 def main() -> None:
     k = json.loads((ROOT / "outputs/kpis.json").read_text(encoding="utf-8"))
     P = k["periods"]
-    labels = k["meta"]["period_labels"]
+    labels = {"baseline": "Today", "ssp245_2030": "SSP2-4.5 · 2030", "ssp245_2050": "SSP2-4.5 · 2050",
+              "ssp585_2030": "SSP5-8.5 · 2030", "ssp585_2050": "SSP5-8.5 · 2050"}
     sh0 = 100 * P["baseline"]["share_ead_high"]["med"]
     sh5 = 100 * P["ssp585_2050"]["share_ead_high"]["med"]
     el5 = P["ssp585_2050"]["el_add_tnd"]["med"] / 1e6
     bp5 = P["ssp585_2050"]["el_add_bp"]["med"]
     vt5 = P["ssp585_2050"]["el_add_vs_today_tnd"]["med"] / 1e6
-    n_words = {2000: "deux mille"}.get(k["meta"]["n_loans"], str(k["meta"]["n_loans"]))
+    n_words = {2000: "two thousand"}.get(k["meta"]["n_loans"], str(k["meta"]["n_loans"]))
     assets = pd.read_parquet(ROOT / "outputs/asset_results.parquet")
     sl = assets.drop_duplicates("sector").set_index("sector")["sector_label"].to_dict()
     top = sorted(k["by_sector"]["ssp585_2050"].items(), key=lambda kv: -kv[1]["el_add_bp_med"])[:2]
-    top_txt = f"{sl[top[0][0]]} et {sl[top[1][0]].lower()}"
+    top_txt = f"{SEC_EN[top[0][0]]} and {SEC_EN[top[1][0]].lower()}"
 
     scenes = [
-        ("hook", 15, "Quand le climat change, le risque de crédit change aussi. Voici ClimaRisk Tunisie : "
-                     "la carte des risques climatiques physiques d'un portefeuille de crédits."),
-        ("origin", 25, "Inondations de Nabeul en 2018, sécheresses qui frappent les céréales, records de chaleur : "
-                       "les actifs financés par les banques tunisiennes sont exposés. En novembre 2026, la Banque "
-                       "Centrale de Tunisie a lancé, selon la presse tunisienne, une feuille de route 2026-2030 sur la finance verte et les risques "
-                       "climatiques. Ce projet se place entre risque bancaire et changement climatique."),
-        ("regulation", 25, "Le cadre s'est construit pas à pas : les principes du Comité de Bâle en 2022, la norme "
-                           "IFRS S2 en 2023, les scénarios NGFS de phase cinq en 2024, les orientations de l'Autorité "
-                           "bancaire européenne et le cadre volontaire de publication de Bâle en 2025, puis la feuille "
-                           "de route de la BCT. L'outil prépare ces attentes, sans prétendre à une conformité."),
-        ("method", 25, "Les données sont entièrement ouvertes : projections climatiques CMIP6 de la NASA, cartes "
-                       "d'inondation Aqueduct, occupation du sol WorldCover et population WorldPop. Pour chaque crédit, "
-                       "on croise aléa, exposition et vulnérabilité du secteur, puis on ajuste la probabilité de défaut "
-                       "et la perte attendue. Le portefeuille de " + n_words + " crédits est cent pour cent synthétique."),
-        ("results", 45, f"Résultat : la part de l'encours située en zone d'aléa élevé passe de {fr(sh0)} pour cent "
-                        f"aujourd'hui à {fr(sh5)} pour cent en 2050, dans le scénario SSP5 8,5. La perte attendue "
-                        f"climatique additionnelle atteint {fr(el5)} millions de dinars, soit {fr(bp5, 0)} points de "
-                        f"base de l'encours, dont {fr(vt5)} millions de plus qu'aujourd'hui. Ces chiffres portent sur un "
-                        f"portefeuille synthétique. {top_txt} sont les secteurs les plus touchés, et l'écart entre modèles "
-                        f"climatiques reste important."),
-        ("showcase", 30, "Le tableau de bord permet de choisir le scénario et l'horizon, d'explorer la carte des "
-                         "gouvernorats, d'ouvrir la fiche de chaque crédit, puis d'exporter les tableaux et le "
-                         "rapport PDF."),
-        ("outro", 15, "Ces chiffres sont illustratifs, à calibrer sur des données bancaires réelles. ClimaRisk "
-                      "Tunisie, un projet open source d'Emna Saada, en géoinformatique."),
+        ("hook", 15, "When the climate shifts, credit risk shifts with it. This is ClimaRisk Tunisia: "
+                     "a map of the physical climate risk inside a bank loan portfolio."),
+        ("origin", 25, "The floods in Nabeul in 2018, droughts that hit the cereal harvest, record heat. "
+                       "The assets that Tunisian banks finance are exposed. In November 2026, according to the "
+                       "Tunisian press, the central bank launched a roadmap on green finance and climate risk "
+                       "for 2026 to 2030. This project sits where banking risk meets climate change."),
+        ("regulation", 25, "The rules have been built step by step: the Basel principles in 2022, the IFRS S2 "
+                           "standard in 2023, phase five of the NGFS scenarios in 2024, the European Banking "
+                           "Authority guidelines and the voluntary Basel disclosure framework in 2025, then the "
+                           "Tunisian roadmap. The tool helps banks prepare. It does not claim compliance."),
+        ("method", 25, "The data are fully open: NASA climate projections, WRI flood maps, ESA land cover and "
+                       "WorldPop population. For each loan, the method combines hazard, exposure and the "
+                       "vulnerability of its sector, then adjusts the probability of default and the expected "
+                       "loss. The portfolio of " + n_words + " loans is entirely synthetic."),
+        ("results", 39, f"The result: the share of the loan book in a high-hazard zone rises from {en(sh0)} percent "
+                        f"today to {en(sh5)} percent in 2050, under the high-emissions scenario. The extra expected "
+                        f"loss reaches {en(el5)} million dinars, or {en(bp5, 0)} basis points of the book, "
+                        f"{en(vt5)} million more than today. These figures describe a synthetic portfolio. "
+                        f"{top_txt} are the most affected sectors, and the spread between climate models remains wide."),
+        ("showcase", 26, "The website tells the story on a single map, then lets you switch scenarios, explore the "
+                         "governorates and sectors, and download the working paper and the data."),
+        ("outro", 15, "These figures are illustrative and must be calibrated on real bank data. ClimaRisk Tunisia, "
+                      "an open-source project by Emna Saada, in geoinformatics."),
     ]
 
     (PUB / "voice").mkdir(parents=True, exist_ok=True)
@@ -149,9 +151,9 @@ def main() -> None:
                      "p10": P[p]["el_add_tnd"]["p10"] / 1e6, "p90": P[p]["el_add_tnd"]["p90"] / 1e6,
                      "share": 100 * P[p]["share_ead_high"]["med"]}
                     for p in ["baseline", "ssp245_2030", "ssp245_2050", "ssp585_2030", "ssp585_2050"]],
-        "heatmap": {"rows": [sl[s] for s in hm], "cols": ["Chaleur", "Sécheresse", "Inondation", "Feux"],
+        "heatmap": {"rows": [SEC_EN[s] for s in hm], "cols": ["Heat", "Drought", "Flood", "Wildfire"],
                     "values": [[round(hm[s][h], 2) for h in ("heat", "drought", "flood", "fire")] for s in hm]},
-        "disclaimer": k["meta"]["disclaimer"],
+        "disclaimer": "100 % synthetic portfolio: illustrative figures, to be calibrated on real bank data.",
     }
     (PUB / "props.json").write_text(json.dumps(props, ensure_ascii=False), encoding="utf-8")
     total = sum(sc["durationInFrames"] for sc in out_scenes) / FPS

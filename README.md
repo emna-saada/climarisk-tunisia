@@ -1,6 +1,6 @@
 # ClimaRisk Tunisie
 
-**Physical climate risk of a bank loan portfolio in Tunisia**: geospatial scoring of heat, drought, flood and wildfire for every loan, CMIP6 / NGFS scenarios at 2030 and 2050, translation into PD / expected-loss adjustments, and aggregation by sector and governorate. Includes a Streamlit dashboard, an automatic French PDF report and an animated demo video.
+**Physical climate risk of a bank loan portfolio in Tunisia**: geospatial scoring of heat, drought, flood and wildfire for every loan, CMIP6 / NGFS scenarios at 2030 and 2050, translation into PD / expected-loss adjustments, and aggregation by sector and governorate. Includes a story-led results website, a Streamlit analysis tool, a LaTeX working paper generated from the results, and an animated demo video.
 
 > ⚠️ **The portfolio is 100 % synthetic.** No real client and no real bank data are used, in line with Tunisian organic law n° 2004-63 on personal data protection. All monetary figures are illustrative and must be calibrated on real bank data before any use.
 
@@ -8,7 +8,7 @@
 
 ## Results at a glance
 
-**[Results website →](https://emna-saada.github.io/climarisk-tunisia/)** · [Results write-up](docs/RESULTS.md) · [Methodology report (PDF, FR)](docs/report.pdf) · [Demo video](video/out/climarisk_demo.mp4)
+**[Results website →](https://emna-saada.github.io/climarisk-tunisia/)** · [Results write-up](docs/RESULTS.md) · [Working paper (PDF)](docs/report.pdf) · [Demo video](video/out/climarisk_demo.mp4)
 
 | | |
 |---|---|
@@ -20,10 +20,10 @@
 ```bash
 make install      # uv sync --all-extras
 make data         # open data: NEX-GDDP-CMIP6, Aqueduct, WorldCover, WorldPop, geoBoundaries (~15-30 min)
-make demo         # pipeline -> outputs/kpis.json, maps, LaTeX report (docs/report.pdf), results site (site/)
+make demo         # pipeline -> outputs/kpis.json, figures, working paper (docs/report.pdf), results site (site/)
 ```
 
-Then `python -m http.server -d site` serves the results website, `make app` opens the Streamlit tool at http://localhost:8501, and `make video` renders `video/out/climarisk_demo.mp4`. The report needs `pdflatex` (TeX Live with the French language pack).
+Then `python -m http.server -d site` serves the results website, `make app` opens the Streamlit tool at http://localhost:8501, and `make video` renders `video/out/climarisk_demo.mp4`. The working paper needs `pdflatex` (TeX Live).
 
 **GitHub Pages.** `site/` is committed fully built; `.github/workflows/pages.yml` publishes it to https://emna-saada.github.io/climarisk-tunisia/ on every push to `main` that touches `site/` (Settings → Pages → Source: GitHub Actions).
 
