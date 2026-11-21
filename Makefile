@@ -41,4 +41,4 @@ lint:
 	$(PY) ruff check src tests app
 
 clean:
-	rm -rf outputs/*.parquet outputs/*.csv outputs/*.json outputs/maps
+	rm -rf outputs/*.parquet outputs/*.csv outputs/*.json outputs/paper outputs/dashboard

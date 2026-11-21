@@ -4,7 +4,7 @@
 
 > ⚠️ **The portfolio is 100 % synthetic.** No real client and no real bank data are used, in line with Tunisian organic law n° 2004-63 on personal data protection. All monetary figures are illustrative and must be calibrated on real bank data before any use.
 
-![Portfolio composite hazard score today, SSP2-4.5 2050, SSP5-8.5 2050](outputs/maps/map_portfolio.png)
+![Portfolio composite hazard score today, SSP2-4.5 2050, SSP5-8.5 2050](outputs/paper/en/fig_portfolio.png)
 
 ## Results at a glance
 
