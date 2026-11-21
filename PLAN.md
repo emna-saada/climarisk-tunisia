@@ -15,7 +15,7 @@ Milestones from brief §9. `[x]` = acceptance criterion met and committed.
 - [x] **M10 Final check** — independent sub-agent review: regulatory facts, licences, no personal data, `make demo` reproducibility. Verdict "fix before showing" → all fixes applied (see research_log §2b); pipeline re-run is byte-identical.
 
 ## Needs from Emna
-- [ ] Create the public GitHub repo `climarisk-tunisia` (code currently lives in `climarisk-tunisia/` on branch `claude/awesome-galileo-vs1xie` of `delft-energy-twin`).
+- [x] Create the public GitHub repo `climarisk-tunisia` (history carried over from `delft-energy-twin`).
 - [ ] Optional: Earth Engine Community project + `earthengine authenticate` (CHIRPS SPI and MODIS burned-area validation).
 - [ ] Re-read BCBS d532 PDF for the exact principle numbering; re-check BCT circulars on bct.gov.tn.
 - [ ] Review every assumption in `config/assumptions.yaml`.

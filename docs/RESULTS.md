@@ -2,7 +2,7 @@
 
 **What this page is.** A plain-language summary of what the pipeline found, with the figures that support each point. Every number comes from `outputs/kpis.json`, produced by `make run` on a **100 % synthetic portfolio** of 2,000 loans. The numbers show how the method behaves. They do not describe any Tunisian bank.
 
-Interactive version: the results website in [`site/`](../site/index.html) (`make site`, then `python -m http.server -d site`), published with GitHub Pages. Full method in French: [`docs/report.pdf`](report.pdf). Technical notes: [`docs/methodology.md`](methodology.md).
+Interactive version: [emna-saada.github.io/climarisk-tunisia](https://emna-saada.github.io/climarisk-tunisia/) (source in [`site/`](../site/index.html); rebuild with `make site`). Full method in French: [`docs/report.pdf`](report.pdf). Technical notes: [`docs/methodology.md`](methodology.md).
 
 ---
 

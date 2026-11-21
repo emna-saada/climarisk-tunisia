@@ -8,7 +8,7 @@
 
 ## Results at a glance
 
-**[Read the results →](docs/RESULTS.md)** · [Results website (`site/`)](site/index.html) · [Methodology report (PDF, FR)](docs/report.pdf) · [Demo video](video/out/climarisk_demo.mp4)
+**[Results website →](https://emna-saada.github.io/climarisk-tunisia/)** · [Results write-up](docs/RESULTS.md) · [Methodology report (PDF, FR)](docs/report.pdf) · [Demo video](video/out/climarisk_demo.mp4)
 
 | | |
 |---|---|
@@ -25,7 +25,7 @@ make demo         # pipeline -> outputs/kpis.json, maps, LaTeX report (docs/repo
 
 Then `python -m http.server -d site` serves the results website, `make app` opens the Streamlit tool at http://localhost:8501, and `make video` renders `video/out/climarisk_demo.mp4`. The report needs `pdflatex` (TeX Live with the French language pack).
 
-**GitHub Pages.** `site/` is committed fully built. In a standalone repository, `.github/workflows/pages.yml` publishes it (Settings → Pages → Source: GitHub Actions). Inside `delft-energy-twin`, the root Pages workflow copies it to `/climarisk/` of the existing site.
+**GitHub Pages.** `site/` is committed fully built; `.github/workflows/pages.yml` publishes it to https://emna-saada.github.io/climarisk-tunisia/ on every push to `main` that touches `site/` (Settings → Pages → Source: GitHub Actions).
 
 ## What it does
 
