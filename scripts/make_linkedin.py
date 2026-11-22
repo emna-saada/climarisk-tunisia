@@ -44,14 +44,14 @@ def main(extra: dict[str, Path]) -> Path:
         f'<b>{fr(v["el_add_bp_med"], 0)} bp</b></div>' for s, v in sec[:6])
 
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
-:root {{ --ink:#0F2A33; --petrol:#0E5E6F; --sand:#F6F4EF; --muted:#5B6B70; --line:#E3E0D8; --amber:#D97706;
+:root {{ --ink:#0F2A33; --petrol:#0E5E6F; --sand:#F6F4EF; --muted:#5B6B70; --line:#E3E0D8; --accent:#12808F;
         --s245:#008C9E; --s585:#C2343F; --mist:#D5E6EA; }}
 * {{ box-sizing:border-box; margin:0; padding:0; }}
 body {{ background:#888; font-family:Inter, "Inter Display", sans-serif; }}
 .slide {{ width:1080px; height:1350px; position:relative; overflow:hidden; background:var(--sand); color:var(--ink);
          padding:84px 80px 96px; display:flex; flex-direction:column; gap:36px; margin-bottom:20px; }}
-.dark {{ background:radial-gradient(120% 90% at 85% 5%, #1A5563 0%, var(--ink) 55%, #0A1E25 100%); color:#fff; }}
-.kick {{ font-size:22px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--amber); }}
+.dark {{ --accent:#2FD1C0; background:radial-gradient(120% 90% at 85% 5%, #0F4A50 0%, #0B1C21 55%, #071417 100%); color:#fff; }}
+.kick {{ font-size:22px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--accent); }}
 h1 {{ font-family:"Inter Display", Inter, sans-serif; font-weight:800; font-size:92px; line-height:1.0; letter-spacing:-2px; }}
 h2 {{ font-family:"Inter Display", Inter, sans-serif; font-weight:800; font-size:64px; line-height:1.05; letter-spacing:-1.2px; }}
 .lead {{ font-size:34px; line-height:1.38; color:var(--muted); max-width:900px; }}
@@ -76,7 +76,7 @@ h2 {{ font-family:"Inter Display", Inter, sans-serif; font-weight:800; font-size
 .warn {{ background:#FFF4E2; border:1.5px solid #F2C27A; color:#6B4A12; border-radius:18px; padding:20px 26px; font-size:24px; line-height:1.4; }}
 ul.lim {{ list-style:none; display:grid; gap:30px; margin-top:12px; }}
 ul.lim li {{ font-size:33px; line-height:1.38; padding-left:34px; position:relative; }}
-ul.lim li:before {{ content:""; position:absolute; left:0; top:15px; width:14px; height:14px; border-radius:3px; background:var(--amber); }}
+ul.lim li:before {{ content:""; position:absolute; left:0; top:15px; width:14px; height:14px; border-radius:3px; background:var(--accent); }}
 </style></head><body>
 
 <section class="slide dark" id="s1">
@@ -104,15 +104,15 @@ ul.lim li:before {{ content:""; position:absolute; left:0; top:15px; width:14px;
   <h2>The share of the book in high-hazard zones grows {fr(s5 / s0, 0)}-fold</h2>
   <div style="display:flex;align-items:baseline;gap:28px;white-space:nowrap">
     <span class="num" style="font-size:104px;color:#9FB8BE">{fr(s0)}&nbsp;%</span>
-    <span style="font-size:72px;color:var(--amber)">→</span>
-    <span class="num" style="font-size:168px;color:var(--amber)">{fr(s5)}&nbsp;%</span>
+    <span style="font-size:72px;color:var(--accent)">→</span>
+    <span class="num" style="font-size:168px;color:var(--accent)">{fr(s5)}&nbsp;%</span>
   </div>
   <p class="lead">Today → 2050. Range across climate models: {fr(s5lo)} to {fr(s5hi)} %.</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
     <div class="card" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:#fff"><div style="font-size:22px;color:#9FB8BE;letter-spacing:.06em;text-transform:uppercase;font-weight:600">Extra expected loss vs today</div><div class="num" style="font-size:58px;margin-top:10px;white-space:nowrap">+TND&nbsp;{fr(vt)}&nbsp;M</div></div>
     <div class="card" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:#fff"><div style="font-size:22px;color:#9FB8BE;letter-spacing:.06em;text-transform:uppercase;font-weight:600">Total climate-adjusted EL</div><div class="num" style="font-size:58px;margin-top:10px;white-space:nowrap">TND&nbsp;{fr(el5)}&nbsp;M</div><div style="font-size:22px;color:#9FB8BE;margin-top:6px">{fr(bp5, 0)} bp of exposure</div></div>
   </div>
-  <div class="warn" style="margin-top:auto;margin-bottom:24px;background:rgba(217,119,6,.14);border-color:rgba(217,119,6,.6);color:#FBD38D">100 % synthetic portfolio: illustrative figures, to be calibrated on real bank data.</div>
+  <div class="warn" style="margin-top:auto;margin-bottom:24px;background:rgba(47,209,192,.10);border-color:rgba(47,209,192,.5);color:#BFF3EC">100 % synthetic portfolio: illustrative figures, to be calibrated on real bank data.</div>
   <div class="foot"><span>Median of 5 CMIP6 models</span><span class="pager">3 / 7</span></div>
 </section>
 
@@ -135,11 +135,11 @@ ul.lim li:before {{ content:""; position:absolute; left:0; top:15px; width:14px;
 
 <section class="slide" id="s6">
   <div class="kick">The work</div>
-  <h2>A story-led website, a working paper and a video</h2>
-  <p class="lead">A scroll-driven map story, the method, the indicators, interactive scenario results, robustness checks and limits.</p>
-  <div class="figure" style="flex:1.1;min-height:0;padding:10px"><img src="{img(extra['dash'])}"></div>
-  <div class="figure" style="flex:1;min-height:0;padding:10px"><img src="{img(extra['video'])}"></div>
-  <div class="foot"><span>Python · LaTeX · d3 · Remotion</span><span class="pager">6 / 7</span></div>
+  <h2>A website you can play through</h2>
+  <p class="lead">Nine levels: travel to 2050 on the map, run the numbers on one loan, read the results, stress-test the assumptions and check the rulebook.</p>
+  <div class="figure" style="flex:1.1;min-height:0;padding:0;overflow:hidden;background:#071417;border-color:#1F3A43"><img src="{img(extra['dash'])}"></div>
+  <div class="figure" style="flex:1;min-height:0;padding:0;overflow:hidden;background:#071417;border-color:#1F3A43"><img src="{img(extra['video'])}"></div>
+  <div class="foot"><span>React · GSAP · Lenis · d3</span><span class="pager">6 / 7</span></div>
 </section>
 
 <section class="slide dark" id="s7">
@@ -151,8 +151,8 @@ ul.lim li:before {{ content:""; position:absolute; left:0; top:15px; width:14px;
     <li>The NGFS Phase V GDP-damage function relies on a retracted paper, so I left it out.</li>
     <li>Physical risk only, a 25 km climate grid, and a synthetic portfolio.</li>
   </ul>
-  <p class="lead" style="margin-top:auto;color:#fff">Website, working paper, code and video: link in the comments.</p>
-  <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px"><span class="chip" style="color:var(--amber)">Python</span><span class="chip" style="color:#9FE3EA">CMIP6</span><span class="chip" style="color:#9FE3EA">NGFS</span><span class="chip" style="color:#9FE3EA">Geoinformatics</span><span class="chip" style="color:#9FE3EA">Credit risk</span></div>
+  <p class="lead" style="margin-top:auto;color:#fff">Website and code: link in the comments.</p>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px"><span class="chip" style="color:var(--accent)">Python</span><span class="chip" style="color:#9FE3EA">CMIP6</span><span class="chip" style="color:#9FE3EA">NGFS</span><span class="chip" style="color:#9FE3EA">Geoinformatics</span><span class="chip" style="color:#9FE3EA">Credit risk</span></div>
   <div class="foot"><span>Emna Saada · Geoinformatics, MSE (Université de la Manouba)</span><span class="pager">7 / 7</span></div>
 </section>
 </body></html>"""
