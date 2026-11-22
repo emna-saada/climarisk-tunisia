@@ -35,3 +35,16 @@ Not used (and why): ERA5-Land (needs a CDS account → replaced by the NEX-GDDP 
 | Remotion (video) | Remotion License — free for individuals and teams ≤ 3 people (FAQ checked 2026-11-20) |
 | ffmpeg | LGPL-2.1+ (system binary, not redistributed) |
 | Fira Sans / Fira Code fonts | SIL Open Font License 1.1 |
+
+## Results website (`website/`)
+
+| Library / asset | Licence |
+|---|---|
+| React, Vite, @vitejs/plugin-react | MIT |
+| GSAP 3.13 (ScrollTrigger, SplitText) and @gsap/react | GSAP Standard "no charge" licence (https://gsap.com/standard-license), free since GSAP 3.13 |
+| Lenis (smooth scroll) | MIT |
+| Motion (motion/react) | MIT |
+| d3 (geo, delaunay, scale-chromatic) | ISC |
+| React Bits components (`website/src/bits`) | MIT + Commons Clause: use inside a site allowed, resale as a library not allowed |
+| Hugeicons free icons | MIT |
+| Inter, Space Grotesk, JetBrains Mono (Fontsource, self-hosted) | SIL Open Font License 1.1 |

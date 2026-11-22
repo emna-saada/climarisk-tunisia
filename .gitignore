@@ -11,3 +11,11 @@ video/voice_model/*.onnx
 .venv
 data/raw
 video/node_modules
+# deliverables kept out of the repository (handed over directly)
+docs/report.pdf
+docs/linkedin/
+video/out/
+video/public/voice/*.wav
+# website build
+website/node_modules/
+website/dist/

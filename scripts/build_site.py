@@ -1,8 +1,8 @@
-"""Assemble the static results site in site/ (deployable as-is to GitHub Pages).
+"""Refresh the data of the results website (website/, Vite + React) from the pipeline outputs.
 
-Steps: export the dashboard tables from outputs/ (scripts/export_dashboard_data.py), copy them into
-site/data, and copy the maps, the PDF report and the demo video into site/downloads.
-Run after `make run maps report`. Preview locally with `python -m http.server -d site`.
+Steps: export the dashboard tables from outputs/ (scripts/export_dashboard_data.py) and copy them into
+website/public/data. Then build the site with `cd website && npm ci && npm run build` (output: website/dist).
+Run after `make run`.
 """
 from __future__ import annotations
 
@@ -12,23 +12,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = ROOT / "site"
-sys.path.insert(0, str(ROOT / "src"))
+DATA = ROOT / "website/public/data"
 
 
 def main() -> None:
     subprocess.run([sys.executable, str(ROOT / "scripts/export_dashboard_data.py")], check=True)
-    (SITE / "data").mkdir(parents=True, exist_ok=True)
+    DATA.mkdir(parents=True, exist_ok=True)
     for f in (ROOT / "outputs/dashboard").glob("*.json"):
-        shutil.copy2(f, SITE / "data" / f.name)
-    dl = SITE / "downloads"
-    dl.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(ROOT / "docs/report.pdf", dl / "report.pdf")
-    video = ROOT / "video/out/climarisk_demo.mp4"
-    if video.exists():
-        shutil.copy2(video, dl / "climarisk_demo.mp4")
-    (SITE / ".nojekyll").write_text("")
-    print("site ready:", SITE)
+        shutil.copy2(f, DATA / f.name)
+    print("website data ready:", DATA)
 
 
 if __name__ == "__main__":

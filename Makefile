@@ -20,17 +20,18 @@ run:                ## full pipeline -> outputs/kpis.json
 maps:
 	$(PY) climarisk maps
 
-report:             ## PDF report typeset with LaTeX (needs pdflatex) -> docs/report.pdf
+report:             ## PDF report typeset with LaTeX (needs pdflatex) -> docs/report.pdf (local only, not committed)
 	$(PY) climarisk report
 
-site:               ## static results site for GitHub Pages -> site/ (preview: python -m http.server -d site)
+site:               ## results website (Vite + React) -> website/dist (preview: cd website && npm run preview)
 	$(PY) python scripts/build_site.py
+	cd website && npm ci && npm run build
 
 app:                ## Streamlit dashboard on http://localhost:8501
 	$(PY) streamlit run app/streamlit_app.py
 
 video:              ## website capture + animated MP4 -> video/out/climarisk_demo.mp4
-	cd video && npm install && npm run capture && npm run build   # serve site/ on :8765 first
+	cd video && npm install && npm run capture && npm run build   # serve website/dist on :8765 first (output not committed)
 
 demo: run maps report site   ## reproduce the demo end-to-end (after `make data`)
 

@@ -1,6 +1,6 @@
 # ClimaRisk Tunisie
 
-**Physical climate risk of a bank loan portfolio in Tunisia**: geospatial scoring of heat, drought, flood and wildfire for every loan, CMIP6 / NGFS scenarios at 2030 and 2050, translation into PD / expected-loss adjustments, and aggregation by sector and governorate. Includes a story-led results website, a Streamlit analysis tool, a LaTeX working paper generated from the results, and an animated demo video.
+**Physical climate risk of a bank loan portfolio in Tunisia**: geospatial scoring of heat, drought, flood and wildfire for every loan, CMIP6 / NGFS scenarios at 2030 and 2050, translation into PD / expected-loss adjustments, and aggregation by sector and governorate. Includes an interactive results website, a Streamlit analysis tool, and the code that typesets a LaTeX working paper and renders a demo video from the results.
 
 > ⚠️ **The portfolio is 100 % synthetic.** No real client and no real bank data are used, in line with Tunisian organic law n° 2004-63 on personal data protection. All monetary figures are illustrative and must be calibrated on real bank data before any use.
 
@@ -8,7 +8,7 @@
 
 ## Results at a glance
 
-**[Results website →](https://emna-saada.github.io/climarisk-tunisia/)** · [Results write-up](docs/RESULTS.md) · [Working paper (PDF)](docs/report.pdf) · [Demo video](video/out/climarisk_demo.mp4)
+**[Results website →](https://emna-saada.github.io/climarisk-tunisia/)** · [Results write-up](docs/RESULTS.md) · [Methodology](docs/methodology.md)
 
 | | |
 |---|---|
@@ -20,12 +20,12 @@
 ```bash
 make install      # uv sync --all-extras
 make data         # open data: NEX-GDDP-CMIP6, Aqueduct, WorldCover, WorldPop, geoBoundaries (~15-30 min)
-make demo         # pipeline -> outputs/kpis.json, figures, working paper (docs/report.pdf), results site (site/)
+make demo         # pipeline -> outputs/kpis.json, figures, working paper (docs/report.pdf, local), website (website/dist)
 ```
 
-Then `python -m http.server -d site` serves the results website, `make app` opens the Streamlit tool at http://localhost:8501, and `make video` renders `video/out/climarisk_demo.mp4`. The working paper needs `pdflatex` (TeX Live).
+Then `cd website && npm run preview` serves the results website, `make app` opens the Streamlit tool at http://localhost:8501, and `make video` renders the demo video locally. The working paper needs `pdflatex` (TeX Live). The PDF, the video and outreach material are generated locally and are not committed.
 
-**GitHub Pages.** `site/` is committed fully built; `.github/workflows/pages.yml` publishes it to https://emna-saada.github.io/climarisk-tunisia/ on every push to `main` that touches `site/` (Settings → Pages → Source: GitHub Actions).
+**Website.** `website/` is a Vite + React app (GSAP ScrollTrigger, Lenis smooth scroll, React Bits components, d3 maps). It tells the study as nine levels: portfolio, hazards, a scroll-driven time machine to 2050, a step-by-step loan calculator, results, stress tests, the regulatory rulebook and the limits, with a "deep dive" panel for every formula and source. `make site` refreshes `website/public/data` from `outputs/`; `.github/workflows/pages.yml` builds and publishes it to https://emna-saada.github.io/climarisk-tunisia/ on every push to `main` that touches `website/`.
 
 ## What it does
 
@@ -47,7 +47,9 @@ scripts/      open-data downloaders (no account needed)
 src/climarisk portfolio, hazards/, vulnerability, credit, pipeline, maps, reporting, physrisk_compare, cli
 app/          Streamlit dashboard (7 tabs)
 tests/        pytest with tiny in-repo data
-docs/         methodology, research_log, LICENSES_DATA, regulatory_matrix, report.pdf
+docs/         methodology, research_log, LICENSES_DATA, regulatory_matrix, RESULTS
+report/       LaTeX template of the working paper (built locally by `make report`)
+website/      results website (Vite + React + GSAP + Lenis)
 video/        Remotion project (props generated from outputs/kpis.json)
 ```
 
@@ -60,4 +62,4 @@ Synthetic portfolio; 0.25° climate grid; 5 models and 3-year windows; Aqueduct 
 Code: MIT. Data: see `docs/LICENSES_DATA.md` (CC0, CC BY 4.0, ODbL, public domain). CLIMADA (GPL-3.0) is not used.
 
 ---
-Emna Saada — géoinformatique, MSE (Université de la Manouba).
+Emna Saada — geoinformatics, MSE (Université de la Manouba).

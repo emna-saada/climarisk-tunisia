@@ -1,6 +1,6 @@
 # Methodology — ClimaRisk Tunisie
 
-Technical companion of the working paper (`docs/report.pdf`). All numbers below are produced by
+Technical companion of the working paper (`docs/report.pdf`, typeset locally with `make report`). All numbers below are produced by
 `make run` and stored in `outputs/kpis.json`; they describe a **100 % synthetic portfolio** and are illustrative.
 
 ## 1. Pipeline

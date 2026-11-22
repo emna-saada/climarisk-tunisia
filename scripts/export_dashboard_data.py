@@ -57,13 +57,16 @@ def main() -> None:
                      "prchange_pct": round(hm["prchange_pct"], 1)})
     write("scenarios", rows, "outputs/kpis.json → periods, hazard_means")
 
-    # every synthetic loan, current climate vs SSP5-8.5 2050 (for the map story)
+    # every synthetic loan, composite score and high-hazard flag for each of the five periods
+    order = list(LABELS)
+    piv_c = assets.pivot_table(index="loan_id", columns="period", values="composite")[order]
+    piv_h = assets.pivot_table(index="loan_id", columns="period", values="high_hazard")[order]
     b = assets[assets.period == "baseline"].set_index("loan_id")
-    f = assets[assets.period == "ssp585_2050"].set_index("loan_id")
     loans = [{"lon": round(r.lon, 3), "lat": round(r.lat, 3), "ead_m": round(r.ead_tnd / 1e6, 3),
-              "sector": sector_en[r.sector], "c0": round(r.composite, 3), "c5": round(f.loc[i, "composite"], 3),
-              "hh0": int(r.high_hazard), "hh5": int(f.loc[i, "high_hazard"])} for i, r in b.iterrows()]
-    write("loans", loans, "outputs/asset_results.parquet (baseline and ssp585_2050)")
+              "sector": sector_en[r.sector], "gov": r.governorate,
+              "c": [round(float(v), 3) for v in piv_c.loc[i]],
+              "h": [int(round(float(v))) for v in piv_h.loc[i]]} for i, r in b.iterrows()]
+    write("loans", loans, "outputs/asset_results.parquet (all periods; order = " + ", ".join(order) + ")")
 
     gh = assets.groupby(["period", "governorate"]).agg(
         hot35=("hot35", "mean"), cdd=("cdd", "mean"), prchange=("prchange", "mean"),
@@ -79,6 +82,34 @@ def main() -> None:
                             "s_heat": round(h["heat"], 3), "s_drought": round(h["drought"], 3),
                             "s_flood": round(h["flood"], 3), "s_fire": round(h["fire"], 3)}
                            for p, h in k["hazard_means"].items()], "outputs/kpis.json → hazard_means")
+
+    # assumptions and regulatory matrix (for the "deep dive" panels and the loan calculator)
+    import yaml
+    asm = yaml.safe_load((ROOT / "config/assumptions.yaml").read_text(encoding="utf-8"))
+    write("assumptions", [{"vulnerability": {sector_en[s]: v for s, v in asm["vulnerability"].items()},
+                           "beta": {sector_en.get(s, s): v for s, v in asm["beta"].items()},
+                           "gamma": asm["gamma_lgd_flood"], "threshold": asm["high_hazard_threshold"],
+                           "materiality": asm["materiality_min_vulnerability"],
+                           "bounds": asm["hazard_normalisation"]}], "config/assumptions.yaml")
+    reg = yaml.safe_load((ROOT / "config/regulatory_matrix.yaml").read_text(encoding="utf-8"))["texts"]
+    write("regulation", reg, "config/regulatory_matrix.yaml")
+
+    # sample loans for the step-by-step calculator: largest loan of each sector plus a spread of others
+    cols = ["hot35", "cdd", "prchange", "flood_depth_m", "fuel", "heat", "drought", "flood", "fire",
+            "composite", "pd_climate", "lgd_climate", "el_base", "el_climate", "el_add"]
+    base = assets[assets.period == "baseline"]
+    pick = set(base.sort_values("ead_tnd").groupby("sector").tail(2).loan_id)
+    pick |= set(base.sample(24, random_state=7).loan_id)
+    det = []
+    for lid in sorted(pick):
+        rows = assets[assets.loan_id == lid].set_index("period")
+        r0 = rows.iloc[0]
+        det.append({"loan": lid, "sector": sector_en[r0.sector], "governorate": r0.governorate,
+                    "lon": round(r0.lon, 3), "lat": round(r0.lat, 3), "ead": round(float(r0.ead_tnd)),
+                    "pd": round(float(r0.pd_base), 4), "lgd": round(float(r0.lgd_base), 3),
+                    "collateral": r0.collateral,
+                    "periods": {p: {c: round(float(rows.loc[p, c]), 4) for c in cols} for p in LABELS}})
+    write("loans_detail", det, "outputs/asset_results.parquet (median across models, per period)")
 
     write("portfolio", [{"n_loans": k["meta"]["n_loans"], "n_governorates": k["meta"]["n_governorates"],
                          "total_ead_bn": round(k["meta"]["total_ead_tnd"] / 1e9, 3),

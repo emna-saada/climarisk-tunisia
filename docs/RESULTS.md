@@ -2,7 +2,7 @@
 
 **What this page is.** A plain-language summary of what the pipeline found, with the figures that support each point. Every number comes from `outputs/kpis.json`, produced by `make run` on a **100 % synthetic portfolio** of 2,000 loans. The numbers show how the method behaves. They do not describe any Tunisian bank.
 
-Interactive version: [emna-saada.github.io/climarisk-tunisia](https://emna-saada.github.io/climarisk-tunisia/) (source in [`site/`](../site/index.html); rebuild with `make site`). Full method: the working paper [`docs/report.pdf`](report.pdf). Technical notes: [`docs/methodology.md`](methodology.md).
+Interactive version: [emna-saada.github.io/climarisk-tunisia](https://emna-saada.github.io/climarisk-tunisia/) (source in [`website/`](../website/); rebuild with `make site`). Full method: the working paper, typeset locally with `make report`. Technical notes: [`docs/methodology.md`](methodology.md).
 
 ---
 
@@ -80,4 +80,4 @@ One result looks odd at first: giving flood *more* weight slightly *lowers* the 
 make install && make data && make demo
 ```
 
-`make app` opens the local dashboard. `python scripts/export_dashboard_data.py` rebuilds the tables behind the online dashboard. `python scripts/make_linkedin.py …` and `node scripts/render_linkedin.js` rebuild the carousel in `docs/linkedin/`.
+`make app` opens the local dashboard. `python scripts/export_dashboard_data.py` rebuilds the tables behind the online dashboard. `python scripts/make_linkedin.py …` and `node scripts/render_linkedin.js` rebuild the carousel locally in `docs/linkedin/` (not committed).

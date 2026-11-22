@@ -19,3 +19,9 @@ Milestones from brief §9. `[x]` = acceptance criterion met and committed.
 - [ ] Optional: Earth Engine Community project + `earthengine authenticate` (CHIRPS SPI and MODIS burned-area validation).
 - [ ] Re-read BCBS d532 PDF for the exact principle numbering; re-check BCT circulars on bct.gov.tn.
 - [ ] Review every assumption in `config/assumptions.yaml`.
+
+## Website v3 (22 Nov 2026)
+- [x] Game-like results website in `website/` (Vite + React + GSAP ScrollTrigger + Lenis + React Bits): nine levels, scroll-driven time machine, in-browser loan calculator, rulebook with verification status, deep-dive drawer with every formula and source
+- [x] Data exported by `scripts/export_dashboard_data.py` (assumptions, regulatory matrix, sample loans, all-period scores)
+- [x] Pages workflow builds `website/` and deploys `website/dist`; old static `site/` removed
+- [x] Report PDF, video and LinkedIn material kept out of the repository (generated locally, handed over directly)
