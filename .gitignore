@@ -19,3 +19,5 @@ video/public/voice/*.wav
 # website build
 website/node_modules/
 website/dist/
+report/climarisk.tex
+video/public/capture/*.mp4
