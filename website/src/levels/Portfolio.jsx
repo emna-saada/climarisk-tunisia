@@ -6,7 +6,7 @@ import AnimatedContent from '../bits/AnimatedContent.jsx';
 import { fmt } from '../lib/format.js';
 import { grow } from '../lib/motion.js';
 
-const NEUTRAL = '#8FA3C7', PICK = '#F5B544';
+const NEUTRAL = '#8FB3B5', PICK = '#2FD1C0';
 
 export default function Portfolio({ data, onDive, toast }) {
   const loans = data.loans;

@@ -23,7 +23,7 @@ export default function TimeMachine({ data, scenario, setScenario, horizon, setH
   const pi = periodIndex(key);
   const row = data.scenarios.find(r => r.period === key);
   const sc = SCEN[scenario];
-  const col = horizon === 0 ? '#9AA6BF' : sc.hex;
+  const col = horizon === 0 ? '#9BB1B3' : sc.hex;
 
   useEffect(() => {
     const mm = gsap.matchMedia();

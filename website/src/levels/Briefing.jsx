@@ -17,11 +17,11 @@ export default function Briefing({ data, onDive }) {
   return (
     <section id="briefing" className="level briefing" data-level="0">
       <div className="briefing__aurora" aria-hidden="true">
-        <Aurora colorStops={['#1b3a6b', '#F5B544', '#e5484d']} amplitude={1.1} blend={0.55} speed={0.6} height={0.5} glow={0.5} opacity={0.75} layers={2} />
+        <Aurora colorStops={['#0E4F56', '#2FD1C0', '#DE7F3A']} amplitude={1.1} blend={0.55} speed={0.6} height={0.5} glow={0.5} opacity={0.75} layers={2} />
       </div>
       <div className="briefing__grid">
         <div className="briefing__copy">
-          <p className="eyebrow"><ShinyText text="Mission briefing · Tunisia · 2026" color="#9AA6BF" shineColor="#F5B544" speed={3} /></p>
+          <p className="eyebrow"><ShinyText text="Mission briefing · Tunisia · 2026" color="#9BB1B3" shineColor="#2FD1C0" speed={3} /></p>
           <SplitText tag="h1" text="When the climate shifts, credit risk shifts with it." className="briefing__title"
             splitType="words" delay={60} duration={1} textAlign="left" trigger="load" />
           <BlurText className="briefing__lede" animateBy="words" delay={25} trigger="load"
@@ -31,7 +31,7 @@ export default function Briefing({ data, onDive }) {
             <button className="btn" onClick={() => onDive('index')}>Open the deep dives</button>
           </div>
         </div>
-        <SpotlightCard className="briefing__card" spotlightColor="rgba(245,181,68,0.22)" grain={0.04}>
+        <SpotlightCard className="briefing__card" spotlightColor="rgba(47,209,192,0.22)" grain={0.04}>
           <p className="card-kicker">What you will uncover</p>
           <p className="briefing__big"><CountUp to={s.share_high_med} decimals={1} duration={2.2} delay={0.6} trigger="load" /><small>%</small></p>
           <p>of the loan book in a high-hazard zone by 2050 under SSP5-8.5, against {fmt(data.scenarios[0].share_high_med, 1)} % today.</p>

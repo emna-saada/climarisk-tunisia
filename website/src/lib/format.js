@@ -7,5 +7,7 @@ export const tnd = v => {
   return `TND ${fmt(v, 0)}`;
 };
 // sequential ramp for hazard scores on a dark surface: higher score = lighter and warmer
-import { interpolateInferno } from 'd3-scale-chromatic';
-export const ramp = t => interpolateInferno(0.2 + 0.75 * Math.max(0, Math.min(1, t)));
+// slate -> ember -> amber -> sand: lightness rises monotonically, so "more hazard" reads as "brighter".
+import { interpolateRgbBasis } from 'd3-interpolate';
+const R = interpolateRgbBasis(['#1E3A40', '#5E3B32', '#A5503A', '#DE7F3A', '#F4BE6A', '#FBE3AE']);
+export const ramp = t => R(0.04 + 0.96 * Math.max(0, Math.min(1, t)));

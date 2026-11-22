@@ -33,7 +33,7 @@ export default function DoTheMath({ data, scenario, horizon, setScenario, setHor
   const dice = () => { const o = L.filter(l => l.loan !== id); setId(o[Math.floor(Math.random() * o.length)].loan); setStep(1); };
 
   const dimArr = useMemo(() => data.loans.map(() => true), [data.loans]);
-  const grey = useMemo(() => data.loans.map(() => '#7d8db0'), [data.loans]);
+  const grey = useMemo(() => data.loans.map(() => '#6F8F93'), [data.loans]);
 
   const scoreRows = [
     ['heat', `${fmt(p.hot35, 0)} days > 35 °C`, `${fmt(p.hot35, 0)} / ${b.heat_days_35.high}`],
@@ -94,7 +94,7 @@ export default function DoTheMath({ data, scenario, horizon, setScenario, setHor
         </div>
 
         <div className="math__right">
-          <Stepper step={step} onStepChange={setStep} width="100%" accentColor="#F5B544" indicator="numbers"
+          <Stepper step={step} onStepChange={setStep} width="100%" accentColor="#2FD1C0" indicator="numbers"
             backButtonText="Back" nextButtonText="Next step" completeButtonText="See the result"
             onFinalStepCompleted={() => { setStep(6); toast('analyst', 'Credit analyst', 'You computed a climate-adjusted expected loss.'); }}
             completedContent={
@@ -142,8 +142,8 @@ export default function DoTheMath({ data, scenario, horizon, setScenario, setHor
               <div className="formula">LGD = {pct(loan.lgd, 1)} × (1 + {r.lgdSensitive ? `${asm.gamma} × ${fmt(p.flood, 2)}` : '0'}) = <b>{pct(r.lgd, 1)}</b>
                 {!r.lgdSensitive && <small className="muted"> · {loan.collateral} collateral is not flood-adjusted</small>}</div>
               <div className="pd-viz">
-                <div><small>Base PD</small><Bar v={loan.pd} max={Math.max(0.12, r.pd)} color="#9AA6BF" /><b>{pct(loan.pd, 2)}</b></div>
-                <div><small>Climate PD</small><Bar v={r.pd} max={Math.max(0.12, r.pd)} color="#F5B544" /><b><Num v={r.pd} f={v => pct(v, 2)} /></b></div>
+                <div><small>Base PD</small><Bar v={loan.pd} max={Math.max(0.12, r.pd)} color="#9BB1B3" /><b>{pct(loan.pd, 2)}</b></div>
+                <div><small>Climate PD</small><Bar v={r.pd} max={Math.max(0.12, r.pd)} color="#2FD1C0" /><b><Num v={r.pd} f={v => pct(v, 2)} /></b></div>
               </div>
             </Step>
             <Step>

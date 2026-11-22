@@ -31,7 +31,7 @@ export default function StressTest({ data, onDive }) {
                   <span className="tornado__label">{r.test}</span>
                   <span className="tornado__track">
                     <span className="tornado__axis" />
-                    <motion.span className="tornado__bar" style={{ [neg ? 'right' : 'left']: '50%', background: isBeta ? '#F5B544' : '#8FA3C7', transformOrigin: neg ? 'right' : 'left', width: `${w * 100}%` }}
+                    <motion.span className="tornado__bar" style={{ [neg ? 'right' : 'left']: '50%', background: isBeta ? '#2FD1C0' : '#8FB3B5', transformOrigin: neg ? 'right' : 'left', width: `${w * 100}%` }}
                       variants={grow(1, i * 0.05)} />
                   </span>
                   <b>{r.delta_pct > 0 ? '+' : ''}{fmt(r.delta_pct, 1)} %</b>
@@ -46,7 +46,7 @@ export default function StressTest({ data, onDive }) {
           <p className="card-kicker">Extra EL vs today · median and 10–90 % range across five models (TND m)</p>
           <motion.ul className="whisk" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
             {sc.map((r, i) => {
-              const c = r.scenario === 'SSP2-4.5' ? '#3987e5' : '#e5484d';
+              const c = r.scenario === 'SSP2-4.5' ? '#3D8FD6' : '#E05252';
               const p = v => `${(100 * v) / maxEl}%`;
               return (
                 <li key={r.period}>
@@ -69,10 +69,10 @@ export default function StressTest({ data, onDive }) {
           {data.physrisk.map((r, i) => {
             const v = r.value;
             return (
-              <SpotlightCard key={r.indicator} className="panel gauge" spotlightColor="rgba(143,163,199,0.18)">
+              <SpotlightCard key={r.indicator} className="panel gauge" spotlightColor="rgba(143,179,181,0.18)">
                 <p className="card-kicker">{r.indicator.replace(' — ', ' · ')}</p>
                 <motion.div className="gauge__track" initial="hidden" whileInView="show" viewport={{ once: true }}><span className="gauge__zero" />
-                  <motion.span className="gauge__bar" style={{ [v < 0 ? 'right' : 'left']: '50%', background: v < 0 ? '#c98500' : '#199e70', transformOrigin: v < 0 ? 'right' : 'left', width: `${Math.abs(v) * 50}%` }}
+                  <motion.span className="gauge__bar" style={{ [v < 0 ? 'right' : 'left']: '50%', background: v < 0 ? '#BF8A0F' : '#1FA886', transformOrigin: v < 0 ? 'right' : 'left', width: `${Math.abs(v) * 50}%` }}
                     variants={grow(1, i * 0.1)} />
                 </motion.div>
                 <b>{v > 0 ? '+' : ''}{fmt(v, 2)}</b>

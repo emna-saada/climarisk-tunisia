@@ -53,9 +53,9 @@ export default function Debrief({ onDive, earned }) {
             <li><b>CI</b>GitHub Actions on every push</li>
           </ul>
         </div>
-        <SpotlightCard className="panel db-end" spotlightColor="rgba(245,181,68,0.25)">
+        <SpotlightCard className="panel db-end" spotlightColor="rgba(47,209,192,0.25)">
           <p className="card-kicker">Reproduce it</p>
-          <h3><GradientText colors={['#F5B544', '#e5484d', '#3987e5', '#F5B544']} animationSpeed={6}>Open source, end to end</GradientText></h3>
+          <h3><GradientText colors={['#2FD1C0', '#F4BE6A', '#2FD1C0']} animationSpeed={6}>Open source, end to end</GradientText></h3>
           <p>One command rebuilds the portfolio, hazards, credit results and this site's data: <code>make demo</code>. Every figure here is read from <code>outputs/kpis.json</code>.</p>
           <div className="briefing__cta">
             <a className="btn btn--primary" href="https://github.com/emna-saada/climarisk-tunisia" target="_blank" rel="noreferrer">Code on GitHub ↗</a>
