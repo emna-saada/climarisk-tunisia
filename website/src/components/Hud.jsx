@@ -43,7 +43,7 @@ export default function Hud({ scenario, horizon, onIndex }) {
         ))}
       </ol>
       <div className="hud__right">
-        <span className="chip" style={{ '--c': sc ? sc.hex : '#9BB1B3' }}>
+        <span className="chip" style={{ '--c': sc ? sc.hex : '#94A3B8' }}>
           <i />{sc ? `${sc.label} · ${HORIZONS[horizon]}` : 'Current climate'}
         </span>
         <button className="dive-btn dive-btn--solid" onClick={onIndex}>Deep dives</button>

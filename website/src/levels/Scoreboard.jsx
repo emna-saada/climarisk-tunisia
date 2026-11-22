@@ -14,7 +14,7 @@ function T({ v, d = 1 }) { return <>{fmt(useTween(v, 0.5), d)}</>; }
 export default function Scoreboard({ data, scenario, setScenario, horizon, setHorizon, onDive }) {
   const key = periodKey(scenario, horizon);
   const row = data.scenarios.find(r => r.period === key);
-  const col = horizon === 0 ? '#9BB1B3' : SCEN[scenario].hex;
+  const col = horizon === 0 ? '#94A3B8' : SCEN[scenario].hex;
   const [gov, setGov] = useState(null);
 
   const sectors = useMemo(() => data.sectors.filter(r => r.period === key).sort((a, b) => b.el_add_bp - a.el_add_bp), [data, key]);
@@ -103,7 +103,7 @@ export default function Scoreboard({ data, scenario, setScenario, horizon, setHo
                 {Object.keys(HAZ).map(h => {
                   const v = cell(s, h);
                   return <motion.span role="cell" key={h} animate={{ backgroundColor: ramp(v / 0.8) }} transition={{ duration: 0.5 }}
-                    style={{ color: v > 0.45 ? '#071417' : '#E8F0EF' }}>{fmt(v, 2)}</motion.span>;
+                    style={{ color: v > 0.45 ? '#FFFFFF' : '#0F172A' }}>{fmt(v, 2)}</motion.span>;
                 })}
               </div>
             ))}
@@ -117,7 +117,7 @@ export default function Scoreboard({ data, scenario, setScenario, horizon, setHo
             <tbody>
               {data.top_exposures.slice(0, 8).map(r => (
                 <tr key={r.loan}><td className="mono">{r.loan}</td><td>{r.sector}</td><td>{r.governorate}</td>
-                  <td>{fmt(r.ead_m, 1)} m</td><td><span className="pill" style={{ background: ramp(r.score / 0.6), color: r.score > 0.35 ? '#071417' : '#E8F0EF' }}>{fmt(r.score, 2)}</span></td>
+                  <td>{fmt(r.ead_m, 1)} m</td><td><span className="pill" style={{ background: ramp(r.score / 0.6), color: r.score > 0.35 ? '#FFFFFF' : '#0F172A' }}>{fmt(r.score, 2)}</span></td>
                   <td><b>{fmt(r.el_add_k, 1)} k</b></td></tr>
               ))}
             </tbody>

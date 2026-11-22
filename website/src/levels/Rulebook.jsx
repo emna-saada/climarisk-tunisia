@@ -29,7 +29,7 @@ export default function Rulebook({ data, onDive, toast }) {
             return (
               <motion.div key={r.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.25 }} className={`rb-cell ${isOpen ? 'is-open' : ''}`}>
-                <SpotlightCard className="panel rb" spotlightColor="rgba(47,209,192,0.16)">
+                <SpotlightCard theme="light" className="panel rb" spotlightColor="rgba(215,38,61,0.08)">
                   <button className="rb__btn" aria-expanded={isOpen} onClick={() => { setOpen(isOpen ? null : r.id); toast('lawyer', 'Rule reader', 'You opened a regulatory text.'); }}>
                     <span className="rb__top"><span className="rb__id">{r.id}</span><span className={`badge badge--${k}`}>{lab}</span></span>
                     <span className="rb__title">{r.title}</span>

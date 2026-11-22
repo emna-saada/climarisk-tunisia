@@ -7,7 +7,7 @@ export const tnd = v => {
   return `TND ${fmt(v, 0)}`;
 };
 // sequential ramp for hazard scores on a dark surface: higher score = lighter and warmer
-// slate -> ember -> amber -> sand: lightness rises monotonically, so "more hazard" reads as "brighter".
+// pale rose -> deep red on white: darker = more hazard (lightness falls monotonically).
 import { interpolateRgbBasis } from 'd3-interpolate';
-const R = interpolateRgbBasis(['#1E3A40', '#5E3B32', '#A5503A', '#DE7F3A', '#F4BE6A', '#FBE3AE']);
+const R = interpolateRgbBasis(['#F7D9D4', '#F0A79A', '#E36A5C', '#C9333B', '#9B1B2B', '#5E0F1C']);
 export const ramp = t => R(0.04 + 0.96 * Math.max(0, Math.min(1, t)));

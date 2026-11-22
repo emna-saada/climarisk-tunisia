@@ -21,12 +21,12 @@ export function periodKey(scenario, horizon) {
 }
 export function periodIndex(key) { return PERIODS.indexOf(key); }
 export const SCEN = {
-  ssp245: { label: 'SSP2-4.5', color: 'var(--ssp245)', hex: '#3D8FD6', blurb: 'intermediate warming, about 2.7 °C by 2100' },
-  ssp585: { label: 'SSP5-8.5', color: 'var(--ssp585)', hex: '#E05252', blurb: 'high-end warming, used as a physical stress bound' }
+  ssp245: { label: 'SSP2-4.5', color: 'var(--ssp245)', hex: '#2563EB', blurb: 'intermediate warming, about 2.7 °C by 2100' },
+  ssp585: { label: 'SSP5-8.5', color: 'var(--ssp585)', hex: '#D7263D', blurb: 'high-end warming, used as a physical stress bound' }
 };
 export const HAZ = {
-  heat: { label: 'Extreme heat', short: 'Heat', hex: '#d9534f', color: 'var(--heat)' },
-  drought: { label: 'Drought', short: 'Drought', hex: '#bf8a0f', color: 'var(--drought)' },
-  flood: { label: 'Flood', short: 'Flood', hex: '#3b8fd8', color: 'var(--flood)' },
-  fire: { label: 'Wildfire', short: 'Fire', hex: '#1fa886', color: 'var(--fire)' }
+  heat: { label: 'Extreme heat', short: 'Heat', hex: '#D7263D', color: 'var(--heat)' },
+  drought: { label: 'Drought', short: 'Drought', hex: '#B97800', color: 'var(--drought)' },
+  flood: { label: 'Flood', short: 'Flood', hex: '#2563EB', color: 'var(--flood)' },
+  fire: { label: 'Wildfire', short: 'Fire', hex: '#12875F', color: 'var(--fire)' }
 };
