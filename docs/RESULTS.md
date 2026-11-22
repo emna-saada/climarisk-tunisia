@@ -80,4 +80,4 @@ One result looks odd at first: giving flood *more* weight slightly *lowers* the 
 make install && make data && make demo
 ```
 
-`make app` opens the local dashboard. `python scripts/export_dashboard_data.py` rebuilds the tables behind the online dashboard. `python scripts/make_linkedin.py …` and `node scripts/render_linkedin.js` rebuild the carousel locally in `docs/linkedin/` (not committed).
+`make app` opens the local dashboard. `python scripts/export_dashboard_data.py` rebuilds the tables behind the online dashboard. `node scripts/render_linkedin.js` rebuilds the LinkedIn images locally from `scripts/linkedin_slides.html` (output not committed).

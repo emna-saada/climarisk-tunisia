@@ -1,0 +1,228 @@
+<!doctype html>
+<!-- LinkedIn carousel (1080x1350). Every number and map is drawn from website/public/data, which
+     scripts/export_dashboard_data.py writes from outputs/kpis.json. Render with scripts/render_linkedin.js. -->
+<html lang="en"><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'SG'; src: url('../website/node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; }
+@font-face { font-family: 'IN'; src: url('../website/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+:root { --ink:#0F172A; --muted:#556072; --faint:#8A93A2; --line:#E3E7ED; --soft:#F4F6F9; --red:#D7263D; --red-d:#9B1B2B; --blue:#2563EB; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #ccc; font-family: 'IN', sans-serif; color: var(--ink); }
+.slide { width: 1080px; height: 1350px; background: #fff; position: relative; overflow: hidden; margin: 0 0 24px; padding: 96px 88px 0; }
+.top { position: absolute; top: 44px; left: 88px; right: 88px; display: flex; justify-content: space-between; align-items: center; font: 600 20px 'IN'; letter-spacing: .08em; color: var(--muted); }
+.brand { display: flex; align-items: center; gap: 12px; color: var(--ink); letter-spacing: .02em; }
+.brand i { width: 18px; height: 18px; border-radius: 50%; background: var(--red); box-shadow: 10px 0 0 var(--blue); margin-right: 12px; }
+.foot { position: absolute; left: 88px; right: 88px; bottom: 44px; display: flex; justify-content: space-between; font: 500 19px 'IN'; color: var(--faint); }
+.kick { font: 700 22px 'IN'; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-top: 40px; }
+h1 { font: 700 96px/0.98 'SG'; letter-spacing: -0.035em; margin-top: 22px; }
+h2 { font: 700 76px/1.0 'SG'; letter-spacing: -0.03em; margin-top: 20px; }
+.lead { font: 400 32px/1.4 'IN'; color: var(--muted); margin-top: 26px; max-width: 880px; }
+.red { color: var(--red); } .blue { color: var(--blue); }
+.num { font-family: 'SG'; font-weight: 700; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+svg text { font-family: 'IN'; }
+.legend { display: flex; align-items: center; gap: 14px; font: 500 19px 'IN'; color: var(--muted); }
+.legend .ramp { width: 200px; height: 12px; border-radius: 6px; }
+/* slide-specific */
+#s1 .map { position: absolute; right: 40px; bottom: 80px; width: 620px; height: 780px; }
+#s1 h1 { position: relative; z-index: 2; font-size: 90px; }
+#s1 .facts { position: absolute; left: 88px; bottom: 150px; display: grid; gap: 26px; }
+#s1 .facts div { border-left: 5px solid var(--red); padding-left: 20px; }
+#s1 .facts div:nth-child(2n) { border-color: var(--blue); }
+#s1 .facts b { display: block; font: 700 52px/1 'SG'; letter-spacing: -0.03em; }
+#s1 .facts span { font: 500 21px 'IN'; color: var(--muted); }
+.steps { margin-top: 40px; display: grid; gap: 16px; }
+.step { display: grid; grid-template-columns: 110px 1fr; gap: 30px; align-items: center; padding: 24px 32px; background: var(--soft); border-radius: 26px; }
+.step .n { width: 110px; height: 110px; border-radius: 30px; display: grid; place-items: center; font: 700 52px 'SG'; color: #fff; }
+.step b { display: block; font: 700 38px 'SG'; letter-spacing: -0.02em; margin-bottom: 6px; }
+.step p { font: 400 25px/1.4 'IN'; color: var(--muted); }
+.formula { margin-top: 20px; padding: 22px 30px; border: 2px dashed var(--line); border-radius: 20px; font: 600 28px 'IN'; text-align: center; }
+.huge { font: 700 300px/0.9 'SG'; letter-spacing: -0.06em; color: var(--red); margin-top: 36px; }
+.huge small { font-size: 120px; }
+.kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 34px; }
+.kpi { background: var(--soft); border-radius: 24px; padding: 28px 30px; }
+.kpi b { display: block; font: 700 54px 'SG'; letter-spacing: -0.03em; }
+.kpi span { font: 500 21px/1.35 'IN'; color: var(--muted); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 30px; }
+.pair figure { text-align: center; }
+.pair figcaption { font: 600 24px 'IN'; color: var(--muted); margin-top: 6px; }
+.pair figcaption b { display: block; font: 700 64px 'SG'; color: var(--ink); letter-spacing: -0.03em; }
+.shot { position: absolute; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 30px 70px -20px rgba(15,23,42,.35), 0 0 0 1px var(--line); }
+.shot .bar { height: 40px; background: var(--soft); display: flex; align-items: center; gap: 9px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+.shot .bar i { width: 12px; height: 12px; border-radius: 50%; background: #D5DAE1; }
+.shot .bar span { margin-left: 14px; font: 500 15px 'IN'; color: var(--faint); }
+.shot img { display: block; width: 100%; }
+.lessons { margin-top: 60px; display: grid; gap: 52px; }
+.lesson { display: grid; grid-template-columns: 90px 1fr; gap: 26px; align-items: start; }
+.lesson .n { font: 700 80px/0.9 'SG'; letter-spacing: -0.04em; }
+.lesson b { display: block; font: 700 42px/1.15 'SG'; letter-spacing: -0.02em; }
+.lesson p { font: 400 27px/1.45 'IN'; color: var(--muted); margin-top: 8px; }
+.cta { position: absolute; left: 88px; right: 88px; bottom: 120px; padding: 34px 40px; border-radius: 26px; background: var(--ink); color: #fff; display: flex; justify-content: space-between; align-items: center; }
+.cta b { font: 700 40px 'SG'; letter-spacing: -0.02em; }
+.cta span { font: 500 22px 'IN'; color: #C3CAD5; }
+.cta i { font-style: normal; font: 700 44px 'SG'; color: var(--red); }
+</style></head><body>
+
+<section class="slide" id="s1">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>01 / 07</span></div>
+  <div class="kick">Geoinformatics × credit risk</div>
+  <h1>When the<br>climate shifts,<br>credit risk<br><span class="red">shifts with it.</span></h1>
+  <div class="facts" id="s1facts"></div>
+  <svg class="map" id="s1map"></svg>
+  <div class="foot"><span>100 % synthetic portfolio · illustrative figures</span><span class="legend"><span>score</span><span class="ramp" id="s1ramp"></span><span>2050 · SSP5-8.5</span></span></div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>02 / 07</span></div>
+  <div class="kick">The method</div>
+  <h2>From climate data<br>to expected loss</h2>
+  <div class="steps">
+    <div class="step"><div class="n" style="background:var(--ink)">1</div><div><b>Place the loans</b><p id="s2p1"></p></div></div>
+    <div class="step"><div class="n" style="background:var(--red)">2</div><div><b>Measure four hazards</b><p>Heat and drought from five CMIP6 models (NASA), 100-year floods (WRI Aqueduct), wildfire fuel (ESA WorldCover).</p></div></div>
+    <div class="step"><div class="n" style="background:var(--blue)">3</div><div><b>Weight by sector</b><p>A cereal farm fears drought, a beach hotel fears floods: one score per loan.</p></div></div>
+    <div class="step"><div class="n" style="background:var(--red-d)">4</div><div><b>Translate into credit risk</b><p>The score raises the probability of default; floods raise the loss on land and property.</p></div></div>
+  </div>
+  <div class="formula">PD′ = PD × (1 + β × score) &nbsp;·&nbsp; EL = PD′ × LGD′ × EAD</div>
+  <div class="foot"><span>Open data · open code (MIT)</span><span>Today · 2030 · 2050</span></div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>03 / 07</span></div>
+  <div class="kick">The key result</div>
+  <div class="huge" id="s3big"></div>
+  <p class="lead" style="margin-top:10px;font-size:36px;color:var(--ink)" id="s3lead"></p>
+  <svg id="s3chart" width="904" height="380" style="margin-top:30px"></svg>
+  <div class="kpis" id="s3kpis"></div>
+  <div class="foot"><span>Median of five CMIP6 models · bars show the 10–90 % model range</span><span>Synthetic portfolio</span></div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>04 / 07</span></div>
+  <div class="kick">The physical driver</div>
+  <h2>Heat spreads<br>from the south<br>to the centre</h2>
+  <div class="pair">
+    <figure><svg id="s4a" width="440" height="640"></svg><figcaption><b id="s4av"></b>days above 35 °C · today</figcaption></figure>
+    <figure><svg id="s4b" width="440" height="640"></svg><figcaption><b id="s4bv" class="red"></b>2050 · SSP5-8.5</figcaption></figure>
+  </div>
+  <div class="foot"><span>Days a year above 35 °C, mean of loans per governorate</span><span class="legend"><span>0</span><span class="ramp" id="s4ramp"></span><span id="s4max"></span></span></div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>05 / 07</span></div>
+  <div class="kick">Who is affected</div>
+  <h2>Rain-fed farms<br>take the hit</h2>
+  <p class="lead">Extra expected loss by 2050 under SSP5-8.5, in basis points of each sector's exposure.</p>
+  <svg id="s5chart" width="904" height="760" style="margin-top:36px"></svg>
+  <div class="foot"><span>Most affected governorates: <b id="s5gov" style="color:var(--ink)"></b></span><span>bp = 0.01 % of exposure</span></div>
+</section>
+
+<section class="slide" id="s6" style="background:linear-gradient(180deg,#fff 0%,#fff 46%,#F4F6F9 46%)">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>06 / 07</span></div>
+  <div class="kick">The work</div>
+  <h2>Explore it<br>like a game</h2>
+  <p class="lead">Travel to 2050 on the map, run the numbers on one loan, and open the formula or regulation behind every figure.</p>
+  <div class="shot" style="left:60px;top:600px;width:840px"><div class="bar"><i></i><i></i><i></i><span>emna-saada.github.io/climarisk-tunisia</span></div><img id="s6a"></div>
+  <div class="shot" style="right:40px;top:860px;width:600px"><div class="bar"><i></i><i></i><i></i><span>Level 4 · Do the math</span></div><img id="s6b"></div>
+  <div class="foot"><span>Nine levels · React · GSAP · d3</span><span>Link in the comments</span></div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="top"><span class="brand"><i></i>ClimaRisk Tunisia</span><span>07 / 07</span></div>
+  <div class="kick">What I learned</div>
+  <h2>Three lessons</h2>
+  <div class="lessons">
+    <div class="lesson"><div class="n red">1</div><div><b>The credit link matters most.</b><p id="s7l1"></p></div></div>
+    <div class="lesson"><div class="n blue">2</div><div><b>Indicators can disagree.</b><p>Two respected drought indicators rank regions in opposite order. The right one depends on what is financed.</p></div></div>
+    <div class="lesson"><div class="n red">3</div><div><b>Honesty over precision.</b><p>The NGFS Phase V damage function relies on a retracted paper, so I left it out. Physical risk only, synthetic data.</p></div></div>
+  </div>
+  <div class="cta"><div><b>Website and code</b><br><span>Link in the first comment</span></div><i>→</i></div>
+  <div class="foot"><span>Emna Saada · Geoinformatics</span><span>#ClimateRisk #CreditRisk</span></div>
+</section>
+
+<script src="../website/node_modules/d3/dist/d3.min.js"></script>
+<script>
+const D = '../website/public/data/';
+const get = f => fetch(D + f + '.json').then(r => r.json()).then(j => j.rows || j);
+const fmt = (v, d = 1) => Number(v).toLocaleString('en-GB', { minimumFractionDigits: d, maximumFractionDigits: d });
+const ramp = d3.interpolateRgbBasis(['#F7D9D4', '#F0A79A', '#E36A5C', '#C9333B', '#9B1B2B', '#5E0F1C']);
+const rampCss = 'linear-gradient(90deg,' + d3.range(0, 1.01, 0.2).map(ramp).join(',') + ')';
+const params = new URLSearchParams(location.search);
+
+Promise.all(['loans', 'scenarios', 'gov_hazards', 'sectors', 'governorates', 'portfolio', 'sensitivity'].map(get)
+  .concat(fetch(D + 'tunisia_adm1.geojson.json').then(r => r.json()))).then(([loans, sc, gh, sec, gov, pf, sens, geo]) => {
+  const S = Object.fromEntries(sc.map(r => [r.period, r]));
+  const s5 = S.ssp585_2050, s0 = S.baseline, p = pf[0];
+
+  // 1 · cover map
+  const m = d3.select('#s1map'), W = 760, H = 900;
+  const proj = d3.geoMercator().fitExtent([[10, 10], [W - 10, H - 10]], geo), path = d3.geoPath(proj);
+  m.append('g').selectAll('path').data(geo.features).join('path').attr('d', path).attr('fill', '#F1F4F8').attr('stroke', '#CDD4DE').attr('stroke-width', 1);
+  const L = [...loans].sort((a, b) => a.c[4] - b.c[4]);
+  m.append('g').selectAll('circle').data(L).join('circle')
+    .attr('cx', d => proj([d.lon, d.lat])[0]).attr('cy', d => proj([d.lon, d.lat])[1])
+    .attr('r', d => 2.2 + Math.sqrt(d.ead_m) * 1.6).attr('fill', d => ramp(Math.min(1, d.c[4] / 0.6))).attr('fill-opacity', .9)
+    .attr('stroke', '#fff').attr('stroke-width', .5);
+  d3.select('#s1ramp').style('background', rampCss);
+  d3.select('#s1facts').html(`<div><b>${p.n_loans.toLocaleString('en-GB')}</b><span>synthetic loans</span></div>
+    <div><b>4</b><span>climate hazards</span></div><div><b>${p.cmip6_models}</b><span>climate models</span></div><div><b>2050</b><span>horizon</span></div>`);
+
+  // 2
+  d3.select('#s2p1').text(`${p.n_loans.toLocaleString('en-GB')} synthetic loans across ${p.n_governorates} governorates, where people live and farm (WorldPop, ESA WorldCover).`);
+
+  // 3 · big number + scenario bars with model range
+  d3.select('#s3big').html(`${fmt(s5.share_high_med)}<small>%</small>`);
+  d3.select('#s3lead').html(`of the loan book sits in a high-hazard zone by 2050 under SSP5-8.5, against <b>${fmt(s0.share_high_med)} %</b> today.`);
+  const order = ['baseline', 'ssp245_2030', 'ssp245_2050', 'ssp585_2030', 'ssp585_2050'];
+  const lab = { baseline: ['Today', ''], ssp245_2030: ['2030', 'SSP2-4.5'], ssp245_2050: ['2050', 'SSP2-4.5'], ssp585_2030: ['2030', 'SSP5-8.5'], ssp585_2050: ['2050', 'SSP5-8.5'] };
+  const col = k => k === 'baseline' ? '#A9B2C0' : k.startsWith('ssp245') ? '#2563EB' : '#D7263D';
+  const c = d3.select('#s3chart'), cw = 904, ch = 380, bh = 300;
+  const x = d3.scaleBand().domain(order).range([0, cw]).padding(0.28), y = d3.scaleLinear().domain([0, 46]).range([bh, 44]);
+  c.append('line').attr('x1', 0).attr('x2', cw).attr('y1', bh).attr('y2', bh).attr('stroke', '#CDD4DE');
+  order.forEach(k => {
+    const r = S[k], g = c.append('g').attr('transform', `translate(${x(k)},0)`), w = x.bandwidth();
+    g.append('rect').attr('y', y(r.share_high_med)).attr('width', w).attr('height', bh - y(r.share_high_med)).attr('rx', 10).attr('fill', col(k));
+    if (k !== 'baseline') {
+      g.append('line').attr('x1', w / 2).attr('x2', w / 2).attr('y1', y(r.share_high_p10)).attr('y2', y(r.share_high_p90)).attr('stroke', '#0F172A').attr('stroke-width', 3);
+      [r.share_high_p10, r.share_high_p90].forEach(v => g.append('line').attr('x1', w / 2 - 12).attr('x2', w / 2 + 12).attr('y1', y(v)).attr('y2', y(v)).attr('stroke', '#0F172A').attr('stroke-width', 3));
+    }
+    g.append('text').attr('x', w / 2).attr('text-anchor', 'middle').attr('y', y(k === 'baseline' ? r.share_high_med : Math.max(r.share_high_med, r.share_high_p90)) - 16).attr('font-size', 26).attr('font-weight', 700).attr('fill', '#0F172A').text(fmt(r.share_high_med) + '%');
+    g.append('text').attr('x', w / 2).attr('y', bh + 36).attr('text-anchor', 'middle').attr('font-size', 24).attr('font-weight', 700).attr('fill', '#0F172A').text(lab[k][0]);
+    g.append('text').attr('x', w / 2).attr('y', bh + 66).attr('text-anchor', 'middle').attr('font-size', 20).attr('fill', col(k)).attr('font-weight', 600).text(lab[k][1]);
+  });
+  d3.select('#s3kpis').html(`<div class="kpi"><b class="red">+TND ${fmt(s5.el_vs_today_m_med)} m</b><span>extra expected loss a year by 2050, compared with today's climate</span></div>
+    <div class="kpi"><b>${fmt(s5.el_add_bp_med)} bp</b><span>climate uplift of expected loss, in basis points of a TND ${fmt(p.total_ead_bn, 0)} bn book</span></div>`);
+
+  // 4 · heat choropleths (same scale)
+  const ghMax = d3.max(gh, r => r.hot35);
+  const draw = (sel, period) => {
+    const v = Object.fromEntries(gh.filter(r => r.period === period).map(r => [r.governorate, r.hot35]));
+    const pr = d3.geoMercator().fitExtent([[6, 6], [434, 634]], geo), pa = d3.geoPath(pr);
+    d3.select(sel).selectAll('path').data(geo.features).join('path').attr('d', pa)
+      .attr('fill', f => ramp((v[f.properties.governorate] ?? 0) / ghMax)).attr('stroke', '#fff').attr('stroke-width', 1.4);
+  };
+  draw('#s4a', 'baseline'); draw('#s4b', 'ssp585_2050');
+  d3.select('#s4av').text(fmt(s0.hot35_days, 0)); d3.select('#s4bv').text(fmt(s5.hot35_days, 0));
+  d3.select('#s4ramp').style('background', rampCss); d3.select('#s4max').text(fmt(ghMax, 0) + ' days');
+
+  // 5 · sector bars
+  const rows = sec.filter(r => r.period === 'ssp585_2050').sort((a, b) => b.el_add_bp - a.el_add_bp);
+  const sv = d3.select('#s5chart'), rh = 74, lx = 330, bx = d3.scaleLinear().domain([0, rows[0].el_add_bp]).range([0, 904 - lx - 110]);
+  rows.forEach((r, i) => {
+    const g = sv.append('g').attr('transform', `translate(0,${i * rh})`), top2 = i < 2;
+    g.append('text').attr('x', 0).attr('y', 38).attr('font-size', 28).attr('font-weight', top2 ? 700 : 500).attr('fill', '#0F172A').text(r.sector === 'Chemicals & phosphates' ? 'Chemicals, phosphates' : r.sector);
+    g.append('rect').attr('x', lx).attr('y', 14).attr('width', 904 - lx - 110).attr('height', 34).attr('rx', 17).attr('fill', '#F4F6F9');
+    g.append('rect').attr('x', lx).attr('y', 14).attr('width', bx(r.el_add_bp)).attr('height', 34).attr('rx', 17).attr('fill', top2 ? '#D7263D' : '#F0A79A');
+    g.append('text').attr('x', 904).attr('y', 40).attr('text-anchor', 'end').attr('font-size', 28).attr('font-weight', 700).attr('fill', top2 ? '#D7263D' : '#0F172A').text(fmt(r.el_add_bp, 0) + ' bp');
+  });
+  const g3 = gov.filter(r => r.period === 'ssp585_2050').sort((a, b) => b.el_add_bp - a.el_add_bp).slice(0, 3).map(r => r.governorate);
+  d3.select('#s5gov').text(g3.join(', '));
+
+  // 6 · screenshots
+  d3.select('#s6a').attr('src', params.get('a') || ''); d3.select('#s6b').attr('src', params.get('b') || '');
+
+  // 7
+  const b2 = sens.find(r => r.test === 'β × 2.0');
+  d3.select('#s7l1').text(`Doubling β, the link from hazard to default, moves the result by ${b2.delta_pct > 0 ? '+' : ''}${fmt(b2.delta_pct, 0)} %. Climate-model choice moves it far less. Calibrate β first.`);
+  document.body.dataset.ready = '1';
+});
+</script>
+</body></html>
